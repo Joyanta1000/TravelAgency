@@ -84,7 +84,7 @@
                         <li><a href="hotel-list-view.html">List View</a></li>
                         <li><a href="hotel-grid-view.html">Grid View</a></li>
                         <li><a href="hotel-block-view.html">Block View</a></li>
-                        <li><a href="hotel-detailed.html">Detailed</a></li>
+                        <li><a href="{{route('hotel-detailed')}}">Detailed</a></li>
                         <li><a href="hotel-booking.html">Booking</a></li>
                         <li><a href="hotel-thankyou.html">Thank You</a></li>
                     </ul>
@@ -227,7 +227,7 @@
                 <li class="menu-item-has-children">
                     <a href="#">Bonus</a>
                     <ul>
-                        <li><a href="dashboard1.html">Dashboard 1</a></li>
+                        <li><a href="{{route('dashboard1')}}">Dashboard 1</a></li>
                         <li><a href="dashboard2.html">Dashboard 2</a></li>
                         <li><a href="dashboard3.html">Dashboard 3</a></li>
                         <li class="menu-item-has-children">
@@ -306,7 +306,7 @@
                     <li><a href="hotel-list-view.html">List View</a></li>
                     <li><a href="hotel-grid-view.html">Grid View</a></li>
                     <li><a href="hotel-block-view.html">Block View</a></li>
-                    <li><a href="hotel-detailed.html">Detailed</a></li>
+                    <li><a href="{{route('hotel-detailed')}}">Detailed</a></li>
                     <li><a href="hotel-booking.html">Booking</a></li>
                     <li><a href="hotel-thankyou.html">Thank You</a></li>
                 </ul>
@@ -318,7 +318,7 @@
                     <li><a href="flight-list-view.html">List View</a></li>
                     <li><a href="flight-grid-view.html">Grid View</a></li>
                     <li><a href="flight-block-view.html">Block View</a></li>
-                    <li><a href="flight-detailed.html">Detailed</a></li>
+                    <li><a href="flight-detailed.html">Detailed j</a></li>
                     <li><a href="flight-booking.html">Booking</a></li>
                     <li><a href="flight-thankyou.html">Thank You</a></li>
                 </ul>

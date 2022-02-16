@@ -14,3 +14,12 @@
 Route::get('/', function () {
     return view('website.owner.index');
 });
+
+
+Route::get('/hotel-detailed', function () {
+    return view('website.owner.hotel-detailed');
+})->name('hotel-detailed');
+
+Route::get('/dashboard1', function () {
+    return view('website.owner.dashboard1');
+})->name('dashboard1');
