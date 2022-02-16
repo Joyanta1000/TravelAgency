@@ -82,7 +82,7 @@
             <div class="bottom gray-area">
                 <div class="container">
                     <div class="logo pull-left">
-                        <a href="index.html" title="Travelo - home">
+                        <a href="{{route('/')}}" title="Travelo - home">
                             <img src="{{asset('images/logo.png')}}" alt="Travelo HTML5 Template" />
                         </a>
                     </div>

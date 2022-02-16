@@ -54,7 +54,7 @@
 
     <div class="container">
         <h1 class="logo navbar-brand">
-            <a href="index.html" title="Travelo - home">
+            <a href="{{route('/')}}" title="Travelo - home">
                 <img src="{{asset('images/logo.png')}}" alt="Travelo HTML5 Template" />
             </a>
         </h1>
@@ -62,9 +62,9 @@
         <nav id="main-menu" role="navigation">
             <ul class="menu">
                 <li class="menu-item-has-children">
-                    <a href="index.html">Home</a>
+                    <a href="{{route('/')}}">Home</a>
                     <ul>
-                        <li><a href="index.html">Home Layout 1</a></li>
+                        <li><a href="{{route('/')}}">Home Layout 1</a></li>
                         <li><a href="homepage2.html">Home Layout 2</a></li>
                         <li><a href="homepage3.html">Home Layout 3</a></li>
                         <li><a href="homepage4.html">Home Layout 4</a></li>
