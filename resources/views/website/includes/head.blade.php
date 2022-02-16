@@ -7,6 +7,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<link href='http://fonts.googleapis.com/css?family=Lato:300,400,500,700' rel='stylesheet' type='text/css'>
+
 <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
 <link rel="stylesheet" href="{{asset('css/font-awesome.min.css')}}">
 <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
@@ -20,8 +22,6 @@
 <link id="main-style" rel="stylesheet" href="{{asset('css/style.css')}}">
 
 <link rel="stylesheet" href="{{asset('css/custom.css')}}">
-
-<link rel="stylesheet" href="{{asset('css/updates.css')}}">
 
 <link rel="stylesheet" href="{{asset('css/updates.css')}}">
 
@@ -42,3 +42,7 @@
 <!-- Javascript Page Loader -->
 <script type="text/javascript" src="{{asset('js/pace.min.js')}}" data-pace-options='{ "ajax": false }'></script>
 <script type="text/javascript" src="{{asset('js/page-loading.js')}}"></script>
+
+<!--  -->
+
+    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,500,700' rel='stylesheet' type='text/css'>
