@@ -133,6 +133,29 @@
                     }
                 });
             });
+
+            // tjq(".five-stars").each(function() {
+
+            //     // alert(tjq(this).data("original-stars"));
+            //     var oringnal_value = tjq(this).data("original-stars");
+            //     // alert(oringnal_value);
+            //     if (typeof oringnal_value == "undefined") {
+            //         oringnal_value = tjq(this).data("original-stars");
+            //         // alert(oringnal_value);
+            //     } else {
+            //         //oringnal_value = 10 * parseInt(oringnal_value);
+            //         coonsole.log(oringnal_value, 'hey');
+            //     }
+            //     tjq(this).slider({
+            //         range: "min",
+            //         value: oringnal_value,
+            //         min: oringnal_value,
+            //         max: oringnal_value,
+            //         slide: function( event, ui ) {
+                        
+            //         }
+            //     });
+            // });
         });
         
         tjq('a[href="#map-tab"]').on('shown.bs.tab', function (e) {
@@ -168,3 +191,5 @@
         }
         google.maps.event.addDomListener(window, 'load', initialize);
     </script>
+
+    <!-- Ratings -->

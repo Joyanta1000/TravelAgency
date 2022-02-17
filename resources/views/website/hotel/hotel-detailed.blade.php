@@ -536,10 +536,16 @@
                         <div class="tab-pane fade" id="hotel-reviews">
                             <div class="intro table-wrapper full-width hidden-table-sms">
                                 <div class="rating table-cell col-sm-4">
-                                    <span class="score">3.9/5.0</span>
+                                    <span class="score">{{number_format($res->first()->review->avg('review'), 1)}}/5.0</span>
                                     <div class="five-stars-container">
-                                        <div class="five-stars" style="width: 78%;"></div>
+                                        @php
+                                            $star = 20 * number_format($res->first()->review->avg('review'), 1);
+                                        @endphp
+                    
+                                        <div class="five-stars" style="width: {{$star}}%;"></div>
                                     </div>
+
+                                    
                                     <a href="#" class="goto-writereview-pane button green btn-small full-width">WRITE A REVIEW</a>
                                 </div>
                                 <div class="table-cell col-sm-8">
@@ -1044,5 +1050,6 @@
         </div>
     </div>
 </section>
+
 
 @endsection

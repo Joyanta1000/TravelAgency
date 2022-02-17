@@ -78,13 +78,13 @@
                     </ul>
                 </li>
                 <li class="menu-item-has-children">
-                    <a href="hotel-index.html">Hotels</a>
+                    <a href="{{route('hotel-index')}}">Hotels</a>
                     <ul>
-                        <li><a href="hotel-index.html">Home Hotels</a></li>
-                        <li><a href="hotel-list-view.html">List View</a></li>
+                        <li><a href="{{route('hotel-index')}}">Home Hotels</a></li>
+                        <li><a href="{{route('hotel-list')}}">List View</a></li>
                         <li><a href="hotel-grid-view.html">Grid View</a></li>
                         <li><a href="hotel-block-view.html">Block View</a></li>
-                        <li><a href="{{route('hotel-detailed')}}">Detailed</a></li>
+                        <li><a href="">Detailed</a></li>
                         <li><a href="hotel-booking.html">Booking</a></li>
                         <li><a href="hotel-thankyou.html">Thank You</a></li>
                     </ul>
@@ -306,7 +306,7 @@
                     <li><a href="hotel-list-view.html">List View</a></li>
                     <li><a href="hotel-grid-view.html">Grid View</a></li>
                     <li><a href="hotel-block-view.html">Block View</a></li>
-                    <li><a href="{{route('hotel-detailed')}}">Detailed</a></li>
+                    <li><a href="">Detailed</a></li>
                     <li><a href="hotel-booking.html">Booking</a></li>
                     <li><a href="hotel-thankyou.html">Thank You</a></li>
                 </ul>

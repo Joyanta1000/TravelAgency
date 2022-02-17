@@ -13,17 +13,32 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['namespace' => 'website', 'middleware' => ['web']], function () {
+Route::group(['middleware' => ['web']], function () {
 
     Route::get('/', function () {
-        return view('website.owner.index');
+        return view('website.web.index');
     })->name('/');
 
     Route::get('/hotel-detailed', function () {
-        return view('website.owner.hotel-detailed');
+        return view('website.hotel.hotel-detailed');
     })->name('hotel-detailed');
 
     Route::get('/dashboard1', function () {
-        return view('website.owner.dashboard1');
+        return view('website.web.dashboard1');
     })->name('dashboard1');
+
+    Route::get('/hotel-index', function () {
+        return view('website.hotel.hotel-index');
+    })->name('hotel-index');
+
+    Route::get('/hotel-list', function () {
+        return view('website.hotel.hotel-list');
+    })->name('hotel-list');
+
+    Route::get('hotel-list', 'HotelController@index')->name('hotel-list');
+    Route::get('hotel-detailed/{id}', 'HotelController@show')->name('hotel-detailed');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
