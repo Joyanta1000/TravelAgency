@@ -1,6 +1,7 @@
 @extends('website.default.layout')
 
 @section('content')
+
 <div class="page-title-container">
     <div class="container">
         <div class="page-title pull-left">
@@ -107,16 +108,47 @@
 
                 <div id="hotel-features" class="tab-container">
                     <ul class="tabs">
-                        <li class="active"><a href="#hotel-description" data-toggle="tab">Description</a></li>
+
+
+                        <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                            Launch demo modal
+                        </button> -->
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Invoice Verification</h5>
+                                        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button> -->
+                                    </div>
+                                    <div class="modal-body">
+                                        <label for="">Invoice No</label>
+                                        <div id="message">
+
+                                        </div>
+                                        <input class="form-control" type="text" name="" id = "invoice"/>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary verify">Verify</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <li id="check" class="active"><a href="#hotel-description" data-toggle="tab">Description</a></li>
                         <li><a href="#hotel-availability" data-toggle="tab">Availability</a></li>
                         <li><a href="#hotel-amenities" data-toggle="tab">Amenities</a></li>
                         <li><a href="#hotel-reviews" data-toggle="tab">Reviews</a></li>
                         <li><a href="#hotel-faqs" data-toggle="tab">FAQs</a></li>
                         <li><a href="#hotel-things-todo" data-toggle="tab">Things to Do</a></li>
-                        <li><a href="#hotel-write-review" data-toggle="tab">Write a Review</a></li>
+                        <li id="checkToReview"class="" ><a href="#hotel-write-review" type="button" data-toggle="modal" data-target="#exampleModal">Write a Review</a></li>
                     </ul>
                     <div class="tab-content">
-                        <div class="tab-pane fade in active" id="hotel-description">
+                        <div class="istTab tab-pane fade in active" id="hotel-description">
                             <div class="intro table-wrapper full-width hidden-table-sms">
                                 <div class="col-sm-5 col-lg-4 features table-cell">
                                     <ul>
@@ -539,74 +571,35 @@
                                     <span class="score">{{number_format($res->first()->review->avg('review'), 1)}}/5.0</span>
                                     <div class="five-stars-container">
                                         @php
-                                            $star = 20 * number_format($res->first()->review->avg('review'), 1);
+                                        $star = 20 * number_format($res->first()->review->avg('review'), 1);
                                         @endphp
-                    
+
                                         <div class="five-stars" style="width: {{$star}}%;"></div>
                                     </div>
 
-                                    
-                                    <a href="#" class="goto-writereview-pane button green btn-small full-width">WRITE A REVIEW</a>
+
+                                    <a href="#" class="goto-writereview-pane button green btn-small full-width" type="button" data-toggle="modal" data-target="#exampleModal">WRITE A REVIEW</a>
                                 </div>
                                 <div class="table-cell col-sm-8">
                                     <div class="detailed-rating">
                                         <ul class="clearfix">
+                                            @foreach($categories_reviews as $key => $value)
+
                                             <li class="col-md-6">
-                                                <div class="each-rating"><label>service</label>
+                                                <!-- @php
+                                                $star_1 = 20 * number_format($res->first()->review->where('category_id', 1)->avg('review'), 1);
+                                                @endphp -->
+                                                @php
+                                                $star_1 = 20 * number_format($value, 1);
+                                                @endphp
+
+                                                <div class="each-rating"><label>{{App\ReviewCategory::find($key)->category}}</label>
                                                     <div class="five-stars-container">
-                                                        <div class="five-stars" style="width: 78%;"></div>
+                                                        <div class="five-stars" style="width: {{$star_1}}%;"></div>
                                                     </div>
                                                 </div>
                                             </li>
-                                            <li class="col-md-6">
-                                                <div class="each-rating"><label>Value</label>
-                                                    <div class="five-stars-container">
-                                                        <div class="five-stars" style="width: 78%;"></div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="col-md-6">
-                                                <div class="each-rating"><label>Sleep Quality</label>
-                                                    <div class="five-stars-container">
-                                                        <div class="five-stars" style="width: 78%;"></div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="col-md-6">
-                                                <div class="each-rating"><label>Cleanliness</label>
-                                                    <div class="five-stars-container">
-                                                        <div class="five-stars" style="width: 78%;"></div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="col-md-6">
-                                                <div class="each-rating"><label>location</label>
-                                                    <div class="five-stars-container">
-                                                        <div class="five-stars" style="width: 78%;"></div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="col-md-6">
-                                                <div class="each-rating"><label>rooms</label>
-                                                    <div class="five-stars-container">
-                                                        <div class="five-stars" style="width: 78%;"></div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="col-md-6">
-                                                <div class="each-rating"><label>swimming pool</label>
-                                                    <div class="five-stars-container">
-                                                        <div class="five-stars" style="width: 78%;"></div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="col-md-6">
-                                                <div class="each-rating"><label>fitness facility</label>
-                                                    <div class="five-stars-container">
-                                                        <div class="five-stars" style="width: 78%;"></div>
-                                                    </div>
-                                                </div>
-                                            </li>
+                                            @endforeach
                                         </ul>
                                     </div>
                                 </div>
@@ -826,17 +819,20 @@
                                 </article>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="hotel-write-review">
+                        <div class="write tab-pane fade" id="hotel-write-review">
                             <div class="main-rating table-wrapper full-width hidden-table-sms intro">
                                 <article class="image-box box hotel listing-style1 photo table-cell col-sm-4">
                                     <figure>
                                         <a class="hover-effect" title="" href="#"><img width="270" height="160" alt="" src="http://placehold.it/270x160"></a>
                                     </figure>
                                     <div class="details">
-                                        <h4 class="box-title">Hilton Hotel and Resorts<small><i class="soap-icon-departure"></i> Paris, france</small></h4>
+                                        <h4 class="box-title">{{$res->first()->name}}<small><i class="soap-icon-departure"></i> Paris, france</small></h4>
                                         <div class="feedback">
-                                            <div title="4 stars" class="five-stars-container" data-toggle="tooltip" data-placement="bottom"><span class="five-stars" style="width: 80%;"></span></div>
-                                            <span class="review">270 reviews</span>
+                                            @php
+                                            $star_write = 20 * number_format($res->first()->review->avg('review'), 1);
+                                            @endphp
+                                            <div title="{{number_format($res->first()->review->avg('review'), 1)}} stars" class="five-stars-container" data-toggle="tooltip" data-placement="bottom"><span class="five-stars" style="width: {{$star_write}}%;"></span></div>
+                                            <span class="review">{{$res->first()->review->count()}} reviews</span>
                                         </div>
                                     </div>
                                 </article>
@@ -845,52 +841,47 @@
                                         <h4>Your overall Rating of this property</h4>
                                         <div class="star-rating clearfix">
                                             <div class="five-stars-container">
-                                                <div class="five-stars" style="width: 80%;"></div>
+                                                @php
+                                                $star_write_own = 20 * number_format($res->first()->review->where('reviewed_by', 1)->avg('review'), 1);
+                                                @endphp
+                                                <div class="five-stars" style="width: {{$star_write_own}}%;"></div>
                                             </div>
-                                            <span class="status">VERY GOOD</span>
+                                            <span class="status">{{number_format($res->first()->review->where('reviewed_by', 1)->avg('review'), 1) >= 4 ? 'VERY GOOD' : (number_format($res->first()->review->where('reviewed_by', 1)->avg('review'), 1) <= 2 ? 'BAD' : 'GOOD') }}</span>
                                         </div>
                                         <div class="detailed-rating">
                                             <ul class="clearfix">
+                                                @foreach($categories_reviews_own as $key => $value)
+
                                                 <li class="col-md-6">
-                                                    <div class="each-rating"><label>service</label>
-                                                        <div class="five-stars-container editable-rating" data-original-stars="4"></div>
+
+                                                    <div class="each-rating"><label>{{App\ReviewCategory::find($key)->category}}</label>
+                                                        <div id="textbox" class="five-stars-container editable-rating" data-original-stars="{{ number_format($value, 1) }}"></div>
+
+                                                        <!-- <div> -->
+                                                        <!-- <input name="review[]" class="rating rating--nojs" max="5" step="1" type="range" value="{{ number_format($value, 1) }}"> -->
+                                                        <!-- <label class="rating-label"><strong>“Half stars” using <code>step="0.5"</code></strong> -->
+                                                        <!-- <input class="rating" max="5" oninput="this.style.setProperty('--value', `${this.valueAsNumber}`)" step="0.5" style="--value:{{ number_format($value, 1) }}" type="range" value="{{ number_format($value, 1) }}"> -->
+                                                        <!-- </label> -->
+                                                        <!-- </div> -->
+                                                        <!-- <div class="rating">
+                                                            <input id="star5" name="star" type="radio" value="5" class="radio-btn hide" />
+                                                            <label for="star5">☆</label>
+                                                            <input id="star4" name="star" type="radio" value="4" class="radio-btn hide" />
+                                                            <label for="star4">☆</label>
+                                                            <input id="star3" name="star" type="radio" value="3" class="radio-btn hide" />
+                                                            <label for="star3">☆</label>
+                                                            <input id="star2" name="star" type="radio" value="2" class="radio-btn hide" />
+                                                            <label for="star2">☆</label>
+                                                            <input id="star1" name="star" type="radio" value="1" class="radio-btn hide" />
+                                                            <label for="star1">☆</label>
+                                                            <div class="clear"></div>
+                                                        </div> -->
                                                     </div>
+
                                                 </li>
-                                                <li class="col-md-6">
-                                                    <div class="each-rating"><label>Value</label>
-                                                        <div class="five-stars-container editable-rating" data-original-stars="4"></div>
-                                                    </div>
-                                                </li>
-                                                <li class="col-md-6">
-                                                    <div class="each-rating"><label>Sleep Quality</label>
-                                                        <div class="five-stars-container editable-rating" data-original-stars="4"></div>
-                                                    </div>
-                                                </li>
-                                                <li class="col-md-6">
-                                                    <div class="each-rating"><label>Cleanliness</label>
-                                                        <div class="five-stars-container editable-rating" data-original-stars="4"></div>
-                                                    </div>
-                                                </li>
-                                                <li class="col-md-6">
-                                                    <div class="each-rating"><label>location</label>
-                                                        <div class="five-stars-container editable-rating" data-original-stars="4"></div>
-                                                    </div>
-                                                </li>
-                                                <li class="col-md-6">
-                                                    <div class="each-rating"><label>rooms</label>
-                                                        <div class="five-stars-container editable-rating" data-original-stars="4"></div>
-                                                    </div>
-                                                </li>
-                                                <li class="col-md-6">
-                                                    <div class="each-rating"><label>swimming pool</label>
-                                                        <div class="five-stars-container editable-rating" data-original-stars="4"></div>
-                                                    </div>
-                                                </li>
-                                                <li class="col-md-6">
-                                                    <div class="each-rating"><label>fitness facility</label>
-                                                        <div class="five-stars-container editable-rating" data-original-stars="4"></div>
-                                                    </div>
-                                                </li>
+
+                                                @endforeach
+
                                             </ul>
                                         </div>
                                     </div>

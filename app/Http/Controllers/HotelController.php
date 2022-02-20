@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Hotel;
+use App\Invoice;
+use App\Review;
 use Illuminate\Http\Request;
 
 class HotelController extends Controller
@@ -48,17 +50,35 @@ class HotelController extends Controller
     public function show(Hotel $hotel, $id)
     {
         $res = $hotel->with('review')
-        ->when($id, function ($query) use ($id) {
-            return $query->where('id', $id);
-        })
-        ->get();
+            ->when($id, function ($query) use ($id) {
+                return $query->where('id', $id);
+            })
+            ->get();
 
-        // dd($res->first()->review->avg('review'));
+        $categories_reviews = $res->first()->review->groupBy('category_id')->map(function ($item) {
+            return $item->avg('review');
+        });
 
-        return view('website.hotel.hotel-detailed', compact('res'));
+        $categories_reviews_own = $res->first()->review->where('reviewed_by', 1)->groupBy('category_id')->map(function ($item) {
+            return $item->avg('review');
+        });
 
+        return view('website.hotel.hotel-detailed', compact('res', 'categories_reviews', 'categories_reviews_own'));
+    }
 
-
+    public function verify_invoice_to_review()
+    {
+        $invoiceChecked = Invoice::where('id', request()->get('reviewed_by'))->first();
+        if ($invoiceChecked == null) {
+            return response()->json(['message' => 'Invoice not found']);
+        } else {
+            $reviewed = Review::where('reviewed_by', request()->get('reviewed_by'))->first();
+            if ($reviewed == null) {
+                return response()->json(['message' => 'You Can Give Review', 'class' => 1]);
+            } else {
+                return response()->json(['message' => 'You Can Not Give Review']);
+            }
+        }
     }
 
     /**
