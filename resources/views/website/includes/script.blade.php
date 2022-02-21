@@ -1,14 +1,14 @@
-<script type="text/javascript" src="{{asset('js/bootstrap.js')}}"></script>
+<script type="text/javascript" src="{{ asset('js/bootstrap.js') }}"></script>
 
 <!-- Flex Slider -->
-<script type="text/javascript" src="{{asset('components/flexslider/jquery.flexslider-min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('components/flexslider/jquery.flexslider-min.js') }}"></script>
 
 <!-- waypoint -->
-<script type="text/javascript" src="{{asset('js/waypoints.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('js/waypoints.min.js') }}"></script>
 
 <!-- load page Javascript -->
-<script type="text/javascript" src="{{asset('js/theme-scripts.js')}}"></script>
-<script src="{{asset('jquery/jquery.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('js/theme-scripts.js') }}"></script>
+<script src="{{ asset('jquery/jquery.min.js') }}"></script>
 <script type="text/javascript">
     tjq(document).ready(function() {
         tjq("#profile .edit-profile-btn").click(function(e) {
@@ -18,7 +18,9 @@
         });
 
         setTimeout(function() {
-            tjq(".notification-area").append('<div class="info-box block"><span class="close"></span><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus ab quis a dolorem, placeat eos doloribus esse repellendus quasi libero illum dolore. Esse minima voluptas magni impedit, iusto, obcaecati dignissimos.</p></div>');
+            tjq(".notification-area").append(
+                '<div class="info-box block"><span class="close"></span><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus ab quis a dolorem, placeat eos doloribus esse repellendus quasi libero illum dolore. Esse minima voluptas magni impedit, iusto, obcaecati dignissimos.</p></div>'
+                );
         }, 10000);
     });
     tjq('a[href="#profile"]').on('shown.bs.tab', function(e) {
@@ -27,35 +29,37 @@
     });
 </script>
 
-<script type="text/javascript" src="{{asset('js/jquery-1.11.1.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('js/jquery.noconflict.js')}}"></script>
-<script type="text/javascript" src="{{asset('js/modernizr.2.7.1.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('js/jquery-migrate-1.2.1.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('js/jquery.placeholder.js')}}"></script>
-<script type="text/javascript" src="{{asset('js/jquery-ui.1.10.4.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('js/jquery-1.11.1.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/jquery.noconflict.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/modernizr.2.7.1.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/jquery-migrate-1.2.1.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/jquery.placeholder.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/jquery-ui.1.10.4.min.js') }}"></script>
 
 <!-- Twitter Bootstrap -->
-<script type="text/javascript" src="{{asset('js/bootstrap.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
 
 <!-- load revolution slider scripts -->
-<script type="text/javascript" src="{{asset('components/revolution_slider/js/jquery.themepunch.plugins.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('components/revolution_slider/js/jquery.themepunch.revolution.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('components/revolution_slider/js/jquery.themepunch.plugins.min.js') }}">
+</script>
+<script type="text/javascript"
+src="{{ asset('components/revolution_slider/js/jquery.themepunch.revolution.min.js') }}"></script>
 
 <!-- load BXSlider scripts -->
-<script type="text/javascript" src="{{asset('components/jquery.bxslider/jquery.bxslider.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('components/jquery.bxslider/jquery.bxslider.min.js') }}"></script>
 
 <!-- Flex Slider -->
-<script type="text/javascript" src="{{asset('components/flexslider/jquery.flexslider.js')}}"></script>
+<script type="text/javascript" src="{{ asset('components/flexslider/jquery.flexslider.js') }}"></script>
 
 <!-- parallax -->
-<script type="text/javascript" src="{{asset('js/jquery.stellar.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('js/jquery.stellar.min.js') }}"></script>
 
 <!-- waypoint -->
-<script type="text/javascript" src="{{asset('js/waypoints.min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('js/waypoints.min.js') }}"></script>
 
 <!-- load page Javascript -->
-<script type="text/javascript" src="{{asset('js/theme-scripts.js')}}"></script>
-<script type="text/javascript" src="{{asset('js/scripts.js')}}"></script>
+<script type="text/javascript" src="{{ asset('js/theme-scripts.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/scripts.js') }}"></script>
 
 <script type="text/javascript">
     tjq(document).ready(function() {
@@ -78,14 +82,14 @@
 
 <!--  -->
 
-<script type="text/javascript" src="{{asset('js/bootstrap.js')}}"></script>
+<script type="text/javascript" src="{{ asset('js/bootstrap.js') }}"></script>
 
-<script type="text/javascript" src="{{asset('components/flexslider/jquery.flexslider-min.js')}}"></script>
+<script type="text/javascript" src="{{ asset('components/flexslider/jquery.flexslider-min.js') }}"></script>
 
 <!-- Google Map Api -->
 <script src="http://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"></script>
 
-<script type="text/javascript" src="{{asset('js/calendar.js')}}"></script>
+<script type="text/javascript" src="{{ asset('js/calendar.js') }}"></script>
 
 <script type="text/javascript">
     tjq(document).ready(function() {
@@ -143,7 +147,8 @@
             // function outputsize() {
             // console.log(tjq(this).parent().find(".five-stars-container"));
             console.log(tjq(this).parent().find("ui-slider-handle.ui-state-default.ui-corner-all"));
-            console.log(document.getElementsByClassName('ui-slider-handle.ui-state-default.ui-corner-all'));
+            console.log(document.getElementsByClassName(
+                'ui-slider-handle.ui-state-default.ui-corner-all'));
             console.log(tjq(this).parent().find(".editable-rating.five-stars-container").offset().top);
             console.log(tjq(this).parent().find(".editable-rating.five-stars-container").width());
 
@@ -207,7 +212,8 @@
     tjq('a[href="#steet-view-tab"]').on('shown.bs.tab', function(e) {
         fenway = panorama.getPosition();
         panoramaOptions.position = fenway;
-        panorama = new google.maps.StreetViewPanorama(document.getElementById('steet-view-tab'), panoramaOptions);
+        panorama = new google.maps.StreetViewPanorama(document.getElementById('steet-view-tab'),
+            panoramaOptions);
         map.setStreetView(panorama);
     });
     var map = null;
@@ -233,6 +239,21 @@
     }
     google.maps.event.addDomListener(window, 'load', initialize);
 
+    function active(e) {
+        
+        tjq('.active').each(function(i) {
+            i.removeClassName('active');
+        });
+        e.addClassName('active');
+    };
+
+   
+       tjq("a").click(function(){
+           
+         tjq("a").toggleClass("active");
+       });
+     
+
     tjq('.verify').click(function() {
 
         $("#message").html('');
@@ -248,23 +269,31 @@
                 // localStorage.setItem("per", per);
                 console.log(result);
                 // $('#table').html(JSON.stringify(result));
-                
+
                 // $("#another_total").html(result);
                 // $("#message").html('');
                 if (result.class == 1) {
-                    $("#message").append('<div class="alert alert-success">' + result.message + '</div>');
-                    
+                    $("#message").append('<div class="alert alert-success">' + result.message +
+                        '</div>');
+
                     $(".tab-pane.fade").removeClass("in active");
                     $(".write").addClass("in active");
-                    $("#check").removeClass("active");
+                    $("#check").addClass("inactive");
                     $("#checkToReview").addClass("active");
+                    $("#exampleModal").data("modal");
+                    // $(".modal.fade").remove();
+                    // data-dismiss="modal"
+                    // modal close
+                    // $(".modal.fade").modal("close");
+                    // modal close
 
                 } else {
                     $(".write").removeClass("in active");
                     $(".istTab").addClass("in active");
                     $("#check").addClass("active");
                     $("#checkToReview").removeClass("active");
-                    $("#message").append('<div class="alert alert-danger">' + result.message + '</div>');
+                    $("#message").append('<div class="alert alert-danger">' + result.message +
+                        '</div>');
                 }
             }
         });

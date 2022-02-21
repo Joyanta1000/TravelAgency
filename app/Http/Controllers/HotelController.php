@@ -17,7 +17,8 @@ class HotelController extends Controller
      */
     public function index()
     {
-        $hotels = Hotel::all();
+        $hotels = Hotel::with('review')->get();
+        // dd($hotels);
         return view('website.hotel.hotel-list', compact('hotels'));
     }
 
@@ -62,15 +63,16 @@ class HotelController extends Controller
 
         $reviewed_by = array();
 
-        foreach (Auth::user()->invoice as $reviewed) {
-            array_push($reviewed_by, $reviewed->id);
+        if (Auth::check()) {
+            foreach (Auth::user()->invoice as $reviewed) {
+                array_push($reviewed_by, $reviewed->id);
+            }
         }
+        
 
         $categories_reviews_own = $res->first()->review->whereIn('reviewed_by', $reviewed_by)->groupBy('category_id')->map(function ($item) {
             return $item->avg('review');
         });
-
-        dd($categories_reviews_own);
 
         return view('website.hotel.hotel-detailed', compact('res', 'categories_reviews', 'categories_reviews_own'));
     }
