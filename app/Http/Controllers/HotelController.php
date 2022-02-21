@@ -6,6 +6,7 @@ use App\Hotel;
 use App\Invoice;
 use App\Review;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HotelController extends Controller
 {
@@ -59,9 +60,17 @@ class HotelController extends Controller
             return $item->avg('review');
         });
 
-        $categories_reviews_own = $res->first()->review->where('reviewed_by', 1)->groupBy('category_id')->map(function ($item) {
+        $reviewed_by = array();
+
+        foreach (Auth::user()->invoice as $reviewed) {
+            array_push($reviewed_by, $reviewed->id);
+        }
+
+        $categories_reviews_own = $res->first()->review->whereIn('reviewed_by', $reviewed_by)->groupBy('category_id')->map(function ($item) {
             return $item->avg('review');
         });
+
+        dd($categories_reviews_own);
 
         return view('website.hotel.hotel-detailed', compact('res', 'categories_reviews', 'categories_reviews_own'));
     }
