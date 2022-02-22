@@ -38,9 +38,15 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('hotel-list', 'HotelController@index')->name('hotel-list');
     Route::get('hotel-detailed/{id}', 'HotelController@show')->name('hotel-detailed');
     Route::get('verify_invoice_to_review', 'HotelController@verify_invoice_to_review')->name('verify_invoice_to_review');
-    
+    Route::post('review/{id}', 'HotelController@store')->name('review');
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::fallback(function () {
+
+    return abort(404);
+
+});

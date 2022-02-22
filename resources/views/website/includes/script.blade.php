@@ -20,7 +20,7 @@
         setTimeout(function() {
             tjq(".notification-area").append(
                 '<div class="info-box block"><span class="close"></span><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus ab quis a dolorem, placeat eos doloribus esse repellendus quasi libero illum dolore. Esse minima voluptas magni impedit, iusto, obcaecati dignissimos.</p></div>'
-                );
+            );
         }, 10000);
     });
     tjq('a[href="#profile"]').on('shown.bs.tab', function(e) {
@@ -42,8 +42,7 @@
 <!-- load revolution slider scripts -->
 <script type="text/javascript" src="{{ asset('components/revolution_slider/js/jquery.themepunch.plugins.min.js') }}">
 </script>
-<script type="text/javascript"
-src="{{ asset('components/revolution_slider/js/jquery.themepunch.revolution.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('components/revolution_slider/js/jquery.themepunch.revolution.min.js') }}"></script>
 
 <!-- load BXSlider scripts -->
 <script type="text/javascript" src="{{ asset('components/jquery.bxslider/jquery.bxslider.min.js') }}"></script>
@@ -92,6 +91,7 @@ src="{{ asset('components/revolution_slider/js/jquery.themepunch.revolution.min.
 <script type="text/javascript" src="{{ asset('js/calendar.js') }}"></script>
 
 <script type="text/javascript">
+    
     tjq(document).ready(function() {
         // function outputsize() {
         //     console.log(textbox.offsetWidth);
@@ -239,25 +239,28 @@ src="{{ asset('components/revolution_slider/js/jquery.themepunch.revolution.min.
     }
     google.maps.event.addDomListener(window, 'load', initialize);
 
-    function active(e) {
-        
-        tjq('.active').each(function(i) {
-            i.removeClassName('active');
-        });
-        e.addClassName('active');
-    };
+//     function active(e) {
+// // alert(e);
+//         tjq('#check').each(function(i) {
+//             // i.addClass('inactive');
+//             console.log(i);
+//         });
+//         // e.addClassName('active');
+//     };
 
-   
-       tjq("a").click(function(){
-           
-         tjq("a").toggleClass("active");
-       });
-     
 
+//     tjq("a").click(function() {
+
+//         tjq("a").toggleClass("active");
+//     });
+
+    
     tjq('.verify').click(function() {
 
         $("#message").html('');
-
+        // list = $('li', parent);
+        // list.not(target).hide("slow");
+        var elements = document.getElementById("check");
         $.ajax({
             method: "GET",
             url: "{{ route('verify_invoice_to_review') }}",
@@ -278,9 +281,15 @@ src="{{ asset('components/revolution_slider/js/jquery.themepunch.revolution.min.
 
                     $(".tab-pane.fade").removeClass("in active");
                     $(".write").addClass("in active");
-                    $("#check").addClass("inactive");
+                    tjq('#hotel-features .tabs a[href="#hotel-write-review"]').tab('show');
+                    for (var i = 0; i < elements.length; i++) {
+                        // $("#check").removeClass("active");
+                        console.log(elements[i]);
+                    }
+                    
                     $("#checkToReview").addClass("active");
                     $("#exampleModal").data("modal");
+                    $("#reviewed_by").val(tjq('#invoice').val());
                     // $(".modal.fade").remove();
                     // data-dismiss="modal"
                     // modal close
@@ -294,10 +303,33 @@ src="{{ asset('components/revolution_slider/js/jquery.themepunch.revolution.min.
                     $("#checkToReview").removeClass("active");
                     $("#message").append('<div class="alert alert-danger">' + result.message +
                         '</div>');
+                    $("#reviewed_by").val('');
                 }
             }
         });
 
+    });
+</script>
+
+<script>
+    // $("#check").addClass("active");
+</script>
+
+<script>
+    $(document).ready(function() {
+        // Check Radio-box
+        $(".rating input:radio").attr("checked", false);
+
+        $('.rating input').click(function() {
+            $(".rating span").removeClass('checked');
+            $(this).parent().addClass('checked');
+        });
+
+        $('input:radio').change(
+            function() {
+                var userRating = this.value;
+                alert(userRating);
+            });
     });
 </script>
 

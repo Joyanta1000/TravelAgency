@@ -7,6 +7,8 @@ use App\Invoice;
 use App\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Spatie\Flash\Message;
+use Alert;
 
 class HotelController extends Controller
 {
@@ -40,7 +42,33 @@ class HotelController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        // \Spatie\Flash\Flash::levels([
+        //     'success' => 'alert-success',
+        //     'warning' => 'alert-warning',
+        //     'error' => 'alert-error',
+        // ]);
+
+        $hotel_id = $request->id;
+        $reviewed_by = $request->reviewed_by;
+        $review = [];
+        for ($i = 0; $i < count($request->review); $i++) {
+            $review['hotel_id'] = $hotel_id;
+            $review['category_id'] = $request->category_id[$i];
+            $review['review'] = $request->review[$i];
+
+            $review['reviewed_by'] = $request->reviewed_by;
+
+            Review::create($review);
+        }
+
+        // flash()->success('Reviews added successfully');
+        // flash()->warning('Mayybeee');
+        // flash()->error('Oh Oh');
+
+        Alert::success('Your comments has been successfully sent', 'Success');
+
+        return redirect()->back()->with('success', 'Reviews added successfully');
     }
 
     /**
@@ -61,6 +89,8 @@ class HotelController extends Controller
             return $item->avg('review');
         });
 
+        // dd($categories_reviews);
+
         $reviewed_by = array();
 
         if (Auth::check()) {
@@ -68,7 +98,7 @@ class HotelController extends Controller
                 array_push($reviewed_by, $reviewed->id);
             }
         }
-        
+
 
         $categories_reviews_own = $res->first()->review->whereIn('reviewed_by', $reviewed_by)->groupBy('category_id')->map(function ($item) {
             return $item->avg('review');
