@@ -91,7 +91,6 @@
 <script type="text/javascript" src="{{ asset('js/calendar.js') }}"></script>
 
 <script type="text/javascript">
-    
     tjq(document).ready(function() {
         // function outputsize() {
         //     console.log(textbox.offsetWidth);
@@ -142,28 +141,9 @@
         });
 
         // editable rating
-        tjq(".editable-rating.five-stars-container").click(function() {
-            // console.log(tjq(this).parent().find(".five-stars-container"));
-            // function outputsize() {
-            // console.log(tjq(this).parent().find(".five-stars-container"));
-            console.log(tjq(this).parent().find("ui-slider-handle.ui-state-default.ui-corner-all"));
-            console.log(document.getElementsByClassName(
-                'ui-slider-handle.ui-state-default.ui-corner-all'));
-            console.log(tjq(this).parent().find(".editable-rating.five-stars-container").offset().top);
-            console.log(tjq(this).parent().find(".editable-rating.five-stars-container").width());
 
-            // height.value = textbox.offsetHeight
-            // }
-            // outputsize()
-
-            // new ResizeObserver(outputsize).observe(textbox);
-            // parent find css
-            // alert("Sorry, you cannot rate this hotel yet. You need to book the hotel first.");
-        });
         tjq(".editable-rating.five-stars-container").each(function() {
             var oringnal_value = tjq(this).data("original-stars");
-            // console.log(oringnal_value);
-            // alert(oringnal_value);
             if (typeof oringnal_value == "undefined") {
                 oringnal_value = 0;
             } else {
@@ -180,28 +160,6 @@
             });
         });
 
-        // tjq(".five-stars").each(function() {
-
-        //     // alert(tjq(this).data("original-stars"));
-        //     var oringnal_value = tjq(this).data("original-stars");
-        //     // alert(oringnal_value);
-        //     if (typeof oringnal_value == "undefined") {
-        //         oringnal_value = tjq(this).data("original-stars");
-        //         // alert(oringnal_value);
-        //     } else {
-        //         //oringnal_value = 10 * parseInt(oringnal_value);
-        //         coonsole.log(oringnal_value, 'hey');
-        //     }
-        //     tjq(this).slider({
-        //         range: "min",
-        //         value: oringnal_value,
-        //         min: oringnal_value,
-        //         max: oringnal_value,
-        //         slide: function( event, ui ) {
-
-        //         }
-        //     });
-        // });
     });
 
     tjq('a[href="#map-tab"]').on('shown.bs.tab', function(e) {
@@ -239,22 +197,22 @@
     }
     google.maps.event.addDomListener(window, 'load', initialize);
 
-//     function active(e) {
-// // alert(e);
-//         tjq('#check').each(function(i) {
-//             // i.addClass('inactive');
-//             console.log(i);
-//         });
-//         // e.addClassName('active');
-//     };
+    //     function active(e) {
+    // // alert(e);
+    //         tjq('#check').each(function(i) {
+    //             // i.addClass('inactive');
+    //             console.log(i);
+    //         });
+    //         // e.addClassName('active');
+    //     };
 
 
-//     tjq("a").click(function() {
+    //     tjq("a").click(function() {
 
-//         tjq("a").toggleClass("active");
-//     });
+    //         tjq("a").toggleClass("active");
+    //     });
 
-    
+
     tjq('.verify').click(function() {
 
         $("#message").html('');
@@ -286,7 +244,7 @@
                         // $("#check").removeClass("active");
                         console.log(elements[i]);
                     }
-                    
+
                     $("#checkToReview").addClass("active");
                     $("#exampleModal").data("modal");
                     $("#reviewed_by").val(tjq('#invoice').val());

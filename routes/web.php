@@ -48,5 +48,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::fallback(function () {
 
     return abort(404);
-
 });

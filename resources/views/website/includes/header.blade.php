@@ -22,8 +22,14 @@
             </li>
         </ul>
         <ul class="quick-menu pull-right">
-            <li><a href="#travelo-login" class="soap-popupbox">LOGIN</a></li>
-            <li><a href="#travelo-signup" class="soap-popupbox">SIGNUP</a></li>
+            <li>
+                <!-- <a href="#travelo-login" href="{{route('login')}}" class="soap-popupbox">LOGIN</a> -->
+                <a href="{{route('login')}}">LOGIN</a>
+            </li>
+            <li>
+                <!-- <a href="#travelo-signup" href="{{route('register')}}" class="soap-popupbox">SIGNUP</a> -->
+                <a href="{{route('register')}}">SIGNUP</a>
+            </li>
             <li class="ribbon currency">
                 <a href="#" title="">USD</a>
                 <ul class="menu mini">
