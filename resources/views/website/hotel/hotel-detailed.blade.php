@@ -666,10 +666,10 @@
                     <div class="tab-pane fade" id="hotel-reviews">
                         <div class="intro table-wrapper full-width hidden-table-sms">
                             <div class="rating table-cell col-sm-4">
-                                <span class="score">{{ number_format($res->first()->review->avg('review'), 1) }}/5.0</span>
+                                <span class="score">{{ number_format($res->first()->review->where('is_publish', 'Published')->avg('review'), 1) }}/5.0</span>
                                 <div class="five-stars-container">
                                     @php
-                                    $star = 20 * number_format($res->first()->review->avg('review'), 1);
+                                    $star = 20 * number_format($res->first()->review->where('is_publish', 'Published')->avg('review'), 1);
                                     @endphp
 
                                     <div class="five-stars" style="width: {{ $star }}%;"></div>
@@ -993,10 +993,10 @@
                                         <h4 class="box-title">{{ $res->first()->name }}<small><i class="soap-icon-departure"></i> Paris, france</small></h4>
                                         <div class="feedback">
                                             @php
-                                            $star_write = 20 * number_format($res->first()->review->avg('review'), 1);
+                                            $star_write = 20 * number_format($res->first()->review->where('is_publish', 'Published')->avg('review'), 1);
                                             @endphp
-                                            <div title="{{ number_format($res->first()->review->avg('review'), 1) }} stars" class="five-stars-container" data-toggle="tooltip" data-placement="bottom"><span class="five-stars" style="width: {{ $star_write }}%;"></span></div>
-                                            <span class="review">{{ $res->first()->review->count() }}
+                                            <div title="{{ number_format($res->first()->review->where('is_publish', 'Published')->avg('review'), 1) }} stars" class="five-stars-container" data-toggle="tooltip" data-placement="bottom"><span class="five-stars" style="width: {{ $star_write }}%;"></span></div>
+                                            <span class="review">{{ $res->first()->review->where('is_publish', 'Published')->count() }}
                                                 reviews</span>
                                         </div>
                                     </div>
@@ -1012,7 +1012,7 @@
                                                 <div class="five-stars" style="width: {{ $star_write_own }}%;">
                                                 </div>
                                             </div>
-                                            <span class="status">{{ number_format($categories_reviews_own->avg(), 1) >= 4? 'VERY GOOD': (number_format($categories_reviews_own->avg(), 1) <= 2? 'BAD': 'GOOD') }}</span>
+                                            <span class="status {{number_format($categories_reviews_own->avg(), 1) >= 1? '': 'hidden'}}">{{ number_format($categories_reviews_own->avg(), 1) >= 4? 'VERY GOOD': (number_format($categories_reviews_own->avg(), 1) >= 1? 'GOOD': '') }}</span>
                                         </div>
                                         <div class="detailed-rating">
                                             <ul class="clearfix">
@@ -1143,11 +1143,11 @@
                     </span>
                     <div class="feedback clearfix">
                         @php
-                        $star = 20 * number_format($res->first()->review->avg('review'), 1);
+                        $star = 20 * number_format($res->first()->review->where('is_publish', 'Published')->avg('review'), 1);
                         @endphp
 
-                        <div title="4 stars" class="five-stars-container" data-toggle="tooltip" data-placement="bottom"><span class="five-stars" style="width: {{ $star }}%;"></span></div>
-                        <span class="review pull-right">{{ $res->first()->review->count() }} reviews</span>
+                        <div title=" {{number_format($res->first()->review->where('is_publish', 'Published')->avg('review'), 1)}} stars" class="five-stars-container" data-toggle="tooltip" data-placement="bottom"><span class="five-stars" style="width: {{ $star }}%;"></span></div>
+                        <span class="review pull-right">{{ $res->first()->review->where('is_publish', 'Published')->count() }} reviews</span>
                     </div>
                     <p class="description">Nunc cursus libero purus ac congue ar lorem cursus ut sed vitae
                         pulvinar massa idend porta nequetiam elerisque mi id, consectetur adipi deese cing elit maus

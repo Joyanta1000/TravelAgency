@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Flash\Message;
 use Alert;
+use App\ReviewCategory;
 
 class HotelController extends Controller
 {
@@ -79,17 +80,30 @@ class HotelController extends Controller
      */
     public function show(Hotel $hotel, $id)
     {
+
+        $categories = ReviewCategory::all();
+
+        $zeroReviewed = collect([]);
+
+        for($i = 0; $i < count($categories); $i++){
+
+            $zeroReviewed->put($categories[$i]->id, 0);
+
+        }
+
         $res = $hotel->with('review')
             ->when($id, function ($query) use ($id) {
                 return $query->where('id', $id);
             })
             ->get();
 
-        $categories_reviews = $res->first()->review->groupBy('category_id')->map(function ($item) {
+        $categories_review = $res->first()->review->where('is_publish', 'Published')->groupBy('category_id')->map(function ($item) {
             return $item->avg('review');
         });
 
         // dd($categories_reviews);
+
+        $categories_reviews = $categories_review->toArray() != null ? $categories_review : $zeroReviewed;
 
         $reviewed_by = array();
 
@@ -100,16 +114,19 @@ class HotelController extends Controller
         }
 
 
-        $categories_reviews_own = $res->first()->review->whereIn('reviewed_by', $reviewed_by)->groupBy('category_id')->map(function ($item) {
+        $categories_reviews_o = $res->first()->review->where('is_publish', 'Published')->whereIn('reviewed_by', $reviewed_by)->groupBy('category_id')->map(function ($item) {
             return $item->avg('review');
         });
+
+        $categories_reviews_own = $categories_reviews_o->toArray() != null ? $categories_reviews_o : $zeroReviewed; 
+
 
         return view('website.hotel.hotel-detailed', compact('res', 'categories_reviews', 'categories_reviews_own'));
     }
 
     public function verify_invoice_to_review()
     {
-        $invoiceChecked = Invoice::where('id', request()->get('reviewed_by'))->first();
+        $invoiceChecked = Invoice::where(['id' => request()->get('reviewed_by'), 'user_id' => Auth::user()->id])->first();
         if ($invoiceChecked == null) {
             return response()->json(['message' => 'Invoice not found']);
         } else {

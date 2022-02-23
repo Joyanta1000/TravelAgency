@@ -22,14 +22,39 @@
             </li>
         </ul>
         <ul class="quick-menu pull-right">
+
+            @guest
             <li>
                 <!-- <a href="#travelo-login" href="{{route('login')}}" class="soap-popupbox">LOGIN</a> -->
                 <a href="{{route('login')}}">LOGIN</a>
             </li>
+            @if (Route::has('register'))
             <li>
                 <!-- <a href="#travelo-signup" href="{{route('register')}}" class="soap-popupbox">SIGNUP</a> -->
                 <a href="{{route('register')}}">SIGNUP</a>
             </li>
+            @endif
+            @else
+            <li class="nav-item dropdown">
+                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                    {{ Auth::user()->name }} <span class="caret"></span>
+                </a>
+
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" style="text-align: center;">
+                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                        {{ __('Logout') }}
+                    </a>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                </div>
+            </li>
+            @endguest
+
+            
+            
             <li class="ribbon currency">
                 <a href="#" title="">USD</a>
                 <ul class="menu mini">
