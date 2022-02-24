@@ -22,6 +22,8 @@ class CreateReviewsTable extends Migration
             $table->string('review');
             $table->unsignedBigInteger('reviewed_by');
             $table->foreign('reviewed_by')->references('id')->on('invoices')->onDelete('cascade');
+            $table->text('comment');
+            $table->string('is_publish')->default('Not Published');
             $table->timestamps();
         });
     }

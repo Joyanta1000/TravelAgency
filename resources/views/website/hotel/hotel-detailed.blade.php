@@ -150,10 +150,10 @@
             <div id="hotel-features" class="tab-container">
                 <ul class="tabs">
 
-                    <li id="check" class="active" onclick="active(this)"><a href="#hotel-description" data-toggle="tab" class="active">Description</a></li>
+                    <li id="check" class="{{$own_or_not == 1  ? '' : 'active'}}" onclick="active(this)"><a href="#hotel-description" data-toggle="tab" class="active">Description</a></li>
                     <li id="check" class="" onclick="active(this)"><a href="#hotel-availability" data-toggle="tab">Availability</a></li>
                     <li id="check" class="" onclick="active(this)"><a href="#hotel-amenities" data-toggle="tab">Amenities</a></li>
-                    <li id="check" class="" onclick="active(this)"><a href="#hotel-reviews" data-toggle="tab">Reviews</a></li>
+                    <li id="check" class="{{$own_or_not == 1  ? 'active' : ''}}" onclick="active(this)"><a href="#hotel-reviews" data-toggle="tab">{{$own_or_not == 1  ? 'Own' : ''}} Reviews</a></li>
                     <li id="check" class="" onclick="active(this)"><a href="#hotel-faqs" data-toggle="tab">FAQs</a></li>
                     <li id="check" class="" onclick="active(this)"><a href="#hotel-things-todo" data-toggle="tab">Things to Do</a></li>
                     @auth<li id="checkToReview" class="" onclick="active(this)">
@@ -170,7 +170,7 @@
 
                 </ul>
                 <div class="tab-content">
-                    <div class="istTab tab-pane fade in active" id="hotel-description">
+                    <div class="istTab tab-pane fade {{$own_or_not == 1  ? '' : 'in active'}}" id="hotel-description">
                         <div class="intro table-wrapper full-width hidden-table-sms">
                             <div class="col-sm-5 col-lg-4 features table-cell">
                                 <ul>
@@ -663,7 +663,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="tab-pane fade" id="hotel-reviews">
+                    <div class="tab-pane fade {{$own_or_not == 1  ? 'in active' : ''}}" id="hotel-reviews">
                         <div class="intro table-wrapper full-width hidden-table-sms">
                             <div class="rating table-cell col-sm-4">
                                 <span class="score">{{ number_format($res->first()->review->where('is_publish', 'Published')->avg('review'), 1) }}/5.0</span>
@@ -686,17 +686,7 @@
                                     <ul class="clearfix">
                                         @foreach ($categories_reviews as $key => $value)
                                         <li class="col-md-6">
-                                            <!-- @php
-                                                            $star_1 =
-                                                                20 *
-                                                                number_format(
-                                                                    $res
-                                                                        ->first()
-                                                                        ->review->where('category_id', 1)
-                                                                        ->avg('review'),
-                                                                    1,
-                                                                );
-                                                        @endphp -->
+                                          
                                             @php
                                             $star_1 = 20 * number_format($value, 1);
                                             @endphp
@@ -715,33 +705,40 @@
                         </div>
                         <div class="guest-reviews">
                             <h2>Guest Reviews</h2>
+
+
+
+
+                            @foreach($reviews as $key => $value)
                             <div class="guest-review table-wrapper">
                                 <div class="col-xs-3 col-md-2 author table-cell">
                                     <a href="#"><img src="http://placehold.it/270x263" alt="" width="270" height="263" /></a>
-                                    <p class="name">Jessica Brown</p>
-                                    <p class="date">NOV, 12, 2013</p>
+                                    <p class="name">{{App\Invoice::where('id', $key)->first()->user->name}}</p>
+                                    <p class="date">{!! htmlspecialchars_decode(date('j<\s\up>S</\s\up> F Y', strtotime(App\Review::where('reviewed_by', $key)->first()->created_at))) !!}</p>
                                 </div>
                                 <div class="col-xs-9 col-md-10 table-cell comment-container">
                                     <div class="comment-header clearfix">
-                                        <h4 class="comment-title">We had great experience while our stay and
-                                            Hilton Hotels!</h4>
+                                        <!-- <h4 class="comment-title">We had great experience while our stay and
+                                            Hilton Hotels!</h4> -->
                                         <div class="review-score">
+                                            @php
+                                            $star_4 = 20 * number_format($value, 1);
+                                            @endphp
                                             <div class="five-stars-container">
-                                                <div class="five-stars" style="width: 80%;"></div>
+                                                <div class="five-stars" style="width: {{$star_4}}%;"></div>
                                             </div>
-                                            <span class="score">4.0/5.0</span>
+                                            <span class="score">{{number_format($value, 1)}}/5.0</span>
                                         </div>
                                     </div>
                                     <div class="comment-content">
-                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting
-                                            industry. Lorem Ipsum has been the industry's stand dummy text ever
-                                            since the 1500s, when an unknown printer took a galley of type and
-                                            scrambled it to make a type specimen book. It has survived not only five
-                                            centuries.</p>
+                                        <p>
+                                            {{App\Review::where('reviewed_by', $key)->first()->comment}}
+                                        </p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="guest-review table-wrapper">
+                            @endforeach
+                            <!-- <div class="guest-review table-wrapper">
                                 <div class="col-xs-3 col-md-2 author table-cell">
                                     <a href="#"><img src="http://placehold.it/270x263" alt="" width="270" height="263" /></a>
                                     <p class="name">David Jhon</p>
@@ -791,7 +788,7 @@
                                             centuries.</p>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                         <a href="#" class="button full-width btn-large">LOAD MORE REVIEWS</a>
                     </div>
@@ -1064,16 +1061,16 @@
                                     </div>
                                 </div>
                             </div>
-                            <form class="review-form">
-                                <div class="form-group col-md-5 no-float no-padding">
+                            <!-- <form class="review-form"> -->
+                            <!-- <div class="form-group col-md-5 no-float no-padding">
                                     <h4 class="title">Title of your review</h4>
                                     <input type="text" name="review-title" class="input-text full-width" value="" placeholder="enter a review title" />
-                                </div>
-                                <div class="form-group">
-                                    <h4 class="title">Your review</h4>
-                                    <textarea class="input-text full-width" placeholder="enter your review (minimum 200 characters)" rows="5"></textarea>
-                                </div>
-                                <div class="form-group">
+                                </div> -->
+                            <div class="form-group">
+                                <h4 class="title">Your review</h4>
+                                <textarea name="comment" class="input-text full-width" placeholder="enter your review (minimum 200 characters)" rows="5"></textarea>
+                            </div>
+                            <!-- <div class="form-group">
                                     <h4 class="title">What sort of Trip was this?</h4>
                                     <ul class="sort-trip clearfix">
                                         <li><a href="#"><i class="soap-icon-businessbag circle"></i></a><span>Business</span>
@@ -1119,11 +1116,11 @@
                                         <li class="googleplus"><a title="GooglePlus" href="#" data-toggle="tooltip"><i class="soap-icon-googleplus"></i></a></li>
                                         <li class="pinterest"><a title="Pinterest" href="#" data-toggle="tooltip"><i class="soap-icon-pinterest"></i></a></li>
                                     </ul>
-                                </div>
-                                <div class="form-group col-md-5 no-float no-padding no-margin">
-                                    <button type="submit" class="btn-large full-width">SUBMIT REVIEW</button>
-                                </div>
-                            </form>
+                                </div> -->
+                            <div class="form-group col-md-5 no-float no-padding no-margin">
+                                <button type="submit" class="btn-large full-width">SUBMIT REVIEW</button>
+                            </div>
+                            <!-- </form> -->
                         </form>
                     </div>
                 </div>
@@ -1147,7 +1144,7 @@
                         @endphp
 
                         <div title=" {{number_format($res->first()->review->where('is_publish', 'Published')->avg('review'), 1)}} stars" class="five-stars-container" data-toggle="tooltip" data-placement="bottom"><span class="five-stars" style="width: {{ $star }}%;"></span></div>
-                        <span class="review pull-right">{{ $res->first()->review->where('is_publish', 'Published')->count() }} reviews</span>
+                        <span class="review pull-right">{{ $res->first()->review->where('is_publish', 'Published')->count() }} {{$own_or_not == 1  ? 'own' : ''}} reviews</span>
                     </div>
                     <p class="description">Nunc cursus libero purus ac congue ar lorem cursus ut sed vitae
                         pulvinar massa idend porta nequetiam elerisque mi id, consectetur adipi deese cing elit maus

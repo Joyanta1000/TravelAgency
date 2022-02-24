@@ -21,7 +21,7 @@ class HotelController extends Controller
     public function index()
     {
 
-        $hotels = Hotel::with(['review' => fn($query) => $query->where('is_publish', 'Published')])->get();
+        $hotels = Hotel::with(['review' => fn ($query) => $query->where('is_publish', 'Published')])->get();
         // dd($hotels);
         return view('website.hotel.hotel-list', compact('hotels'));
     }
@@ -53,13 +53,17 @@ class HotelController extends Controller
 
         $hotel_id = $request->id;
         $reviewed_by = $request->reviewed_by;
-        $review = [];
+        $comment = $request->comment;
+        // dd($hotel_id, $reviewed_by, $comment);
+        // $review = [];
         for ($i = 0; $i < count($request->review); $i++) {
             $review['hotel_id'] = $hotel_id;
             $review['category_id'] = $request->category_id[$i];
             $review['review'] = $request->review[$i];
 
             $review['reviewed_by'] = $request->reviewed_by;
+
+            $review['comment'] = $comment;
 
             Review::create($review);
         }
@@ -91,7 +95,8 @@ class HotelController extends Controller
             $zeroReviewed->put($categories[$i]->id, 0);
         }
         if (request()->get('invoice_id') == null) {
-            $res = $hotel->with('review')
+            $res = $hotel->with(['review' => fn ($query) => $query->where('is_publish', 'Published')])
+
                 ->when($id, function ($query) use ($id) {
                     return $query->where('id', $id);
                 })
@@ -102,9 +107,8 @@ class HotelController extends Controller
                 //             })
 
                 ->get();
-                
         } else {
-            $res = $hotel->whereHas('review')->with(['review' => fn($query) => $query->where('reviewed_by', request()->get('invoice_id'))])
+            $res = $hotel->whereHas('review')->with(['review' => fn ($query) => $query->where('reviewed_by', request()->get('invoice_id'))])
                 // ->when($id, function ($query) use ($id) {
                 //     return $query->where('id', $id);
                 // })
@@ -113,11 +117,11 @@ class HotelController extends Controller
                 //                 })
 
                 // ->exists();
-                        
+
 
                 ->get();
 
-                
+
             // ->whereHas('review', function ($query) {
             //     $query->where('reviewed_by', request()->get('invoice_id'));
             // })
@@ -125,23 +129,25 @@ class HotelController extends Controller
             //     //     return $query->where('reviewed_by', request()->get('invoice_id'));
             //     // })
             //     ->get();
-        
+
             // dd($res);
         }
 
+        $own_or_not = 0;
 
         if (request()->get('invoice_id') == null) {
 
             $categories_review = $res->first()->review->where('is_publish', 'Published')->groupBy('category_id')->map(function ($item) {
                 return $item->avg('review');
             });
-            
         } else {
             $categories_review = $res->first()->review->where('reviewed_by', request()->get('invoice_id'))->where('is_publish', 'Published')->groupBy('category_id')->map(function ($item) {
                 return $item->avg('review');
             });
 
             // dd($categories_review);
+
+            $own_or_not = 1;
         }
 
         // dd($categories_reviews);
@@ -157,9 +163,9 @@ class HotelController extends Controller
         }
 
         // if (request()->get('invoice_id') == null) {
-            $categories_reviews_o = $res->first()->review->where('is_publish', 'Published')->whereIn('reviewed_by', $reviewed_by)->groupBy('category_id')->map(function ($item) {
-                return $item->avg('review');
-            });
+        $categories_reviews_o = $res->first()->review->where('is_publish', 'Published')->whereIn('reviewed_by', $reviewed_by)->groupBy('category_id')->map(function ($item) {
+            return $item->avg('review');
+        });
         // } else {
 
         //     $categories_reviews_o = $res->first()->review->where('is_publish', 'Published')->whereIn('reviewed_by', request()->get('invoice_id'))->groupBy('category_id')->map(function ($item) {
@@ -167,10 +173,31 @@ class HotelController extends Controller
         //     });
         // }
 
-        $categories_reviews_own = $categories_reviews_o->toArray() != null ? $categories_reviews_o : $zeroReviewed;
+        // dd($res);
 
+        $categories_reviews_own = $categories_reviews_o->toArray() != null ? $categories_reviews_o : $zeroReviewed; 
 
-        return view('website.hotel.hotel-detailed', compact('res', 'categories_reviews', 'categories_reviews_own'));
+        // $comments = Review::where('is_publish', 'Published')->groupBy('reviewed_by')
+        // // $hotel->with(['review' => fn ($query) => $query->where('is_publish', 'Published')->groupBy('reviewed_by')])
+        //     // ->when($id, function ($query) use ($id) {
+        //     //     return $query->where('id', $id);
+        //     // })
+        //     ->get();
+
+        // dd($comments);
+
+        // $hotel_review = collect([]);
+
+        $reviews = $res->first()->review->where('is_publish', 'Published')->whereIn('reviewed_by', $reviewed_by)->groupBy('reviewed_by')->map(function ($item) {
+            return $item->avg('review');
+        });
+
+            // dd($reviews);
+
+    //    $g = Hotel::with('review')->get()->groupBy('review.reviewed_by')->get();
+// dd($g);
+        
+        return view('website.hotel.hotel-detailed', compact('reviews','res', 'categories_reviews', 'categories_reviews_own', 'own_or_not'));
     }
 
     public function invoice_wise_review()
@@ -182,6 +209,7 @@ class HotelController extends Controller
                 array_push($reviewed_by, $reviewed->id);
             }
         }
+
 
         $reviewDetails = Review::whereIn('reviewed_by', $reviewed_by)->where('is_publish', 'Published')->with('hotel')->get();
         // dd($reviewDetails->groupBy('reviewed_by'));
