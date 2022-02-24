@@ -162,7 +162,7 @@
                         </ul>
                     </div>
                     <div class="hotel-list listing-style3 hotel">
-                        @foreach ($hotels as $hotel)
+                        @foreach ($reviewDetails->groupBy('reviewed_by') as $index => $value)
                         <article class="box">
                             <figure class="col-sm-5 col-md-4">
                                 <a title="" href="ajax/slideshow-popup.html" class="hover-effect popup-gallery"><img width="270" height="160" alt="" src="http://placehold.it/270x160"></a>
@@ -170,18 +170,21 @@
                             <div class="details col-sm-7 col-md-8">
                                 <div>
                                     <div>
-                                        <h4 class="box-title">{{ $hotel->name }}<small><i class="soap-icon-departure yellow-color"></i> Bastille, Paris
-                                                france</small></h4>
-                                        <div class="amenities">
+                                        <h4 class="box-title">Hotel: {{ $value->first()->hotel->name }}, Invoice No: {{ $index }}<small>
+                                            <!-- <i class="soap-icon-departure yellow-color"></i> -->
+                                            <!-- Bastille, Paris france -->
+                                        </small>
+                                        </h4>
+                                        <!-- <div class="amenities">
                                             <i class="soap-icon-wifi circle"></i>
                                             <i class="soap-icon-fitnessfacility circle"></i>
                                             <i class="soap-icon-fork circle"></i>
                                             <i class="soap-icon-television circle"></i>
-                                        </div>
+                                        </div> -->
                                     </div>
                                     <div>
                                         @php
-                                        $star = 20 * number_format($hotel->review->avg('review'), 1);
+                                        $star = 20 * number_format($value->avg('review'), 1);
                                         $st = preg_replace("/[^0-9]/", "", $star);
                                         @endphp
                                         <div class="five-stars-container">
@@ -189,7 +192,7 @@
                                             <span class="five-stars" style="width: {{(int)$st ? (int)$st : 0 }}%;">
                                             </span>
                                         </div>
-                                        <span class="review">{{ $hotel->review->count() }} reviews</span>
+                                        <span class="review">{{ $value->count() }} reviews</span>
                                     </div>
                                 </div>
                                 <div>
@@ -197,8 +200,8 @@
                                         massa idend porta nequetiam elerisque mi id, consectetur adipi deese cing
                                         elit maus fringilla bibe endum.</p>
                                     <div>
-                                        <span class="price"><small>AVG/NIGHT</small>$620</span>
-                                        <a class="button btn-small full-width text-center" title="" href="{{ route('hotel-detailed', $hotel->id) }}}">SELECT</a>
+                                        <!-- <span class="price"><small>AVG/NIGHT</small>$620</span> -->
+                                        <a class="button btn-small full-width text-center" title="" href="{{ route('hotel-detailed', ['id' => 'A', 'invoice_id'=> $index ]) }}">SELECT</a>
                                     </div>
                                 </div>
                             </div>

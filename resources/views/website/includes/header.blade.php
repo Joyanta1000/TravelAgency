@@ -306,6 +306,14 @@
                                 <li><a href="search-style3.html">Search Style 3</a></li>
                             </ul>
                         </li>
+                        <li class="menu-item-has-children">
+                            <a href="#">Others</a>
+                            <ul>
+                                <li><a href="{{route('invoice_wise_review')}}">Invoice Wise Review</a></li>
+                                <li><a href="search-style2.html">Search Style 2</a></li>
+                                <li><a href="search-style3.html">Search Style 3</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </li>
             </ul>
