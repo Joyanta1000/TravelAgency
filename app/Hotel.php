@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Hotel extends Model
 {
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'description', 'icon', 'image', 'lat', 'lng', 'is_active', 'is_delete'];
 
     public function invoice()
     {

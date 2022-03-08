@@ -86,11 +86,11 @@
 <script type="text/javascript" src="{{ asset('components/flexslider/jquery.flexslider-min.js') }}"></script>
 
 <!-- Google Map Api -->
-<script src="http://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"></script>
+<!-- <script src="http://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"></script> -->
 
 <script type="text/javascript" src="{{ asset('js/calendar.js') }}"></script>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
     tjq(document).ready(function() {
         // function outputsize() {
         //     console.log(textbox.offsetWidth);
@@ -267,7 +267,7 @@
         });
 
     });
-</script>
+</script> -->
 
 <script>
     // $("#check").addClass("active");
@@ -296,5 +296,5 @@
 <!-- Ratings -->
 
 
-    <script type='text/javascript' src="http://maps.google.com/maps/api/js?sensor=false&amp;language=en"></script>
+    <!-- <script type='text/javascript' src="http://maps.google.com/maps/api/js?sensor=false&amp;language=en"></script> -->
     <script type="text/javascript" src="js/gmap3.min.js"></script>
