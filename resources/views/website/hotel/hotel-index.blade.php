@@ -367,7 +367,7 @@
                                             <p> You can select the range from your location to see the hotels.</p>
                                         </div>
                                     </div>
-                                    
+
                                 </div>
 
 
@@ -375,9 +375,9 @@
 
                             <div style="padding-left: 100px; border-radius: 5px;" class="col">
 
-                            <div id="googleMap" style="width: 50%; height: 500px; border-radius: 10px;">
-                            
-                            </div>
+                                <div id="googleMap" style="width: 50%; height: 500px; border-radius: 10px;">
+
+                                </div>
 
                             </div>
 
@@ -976,7 +976,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC939FE0TQkI_gw0xHgTF0KKP1gG7Hgi6U&callback=initMap&v=weekly&channel=2" async></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC939FE0TQkI_gw0xHgTF0KKP1gG7Hgi6U&libraries=geometry&callback=initMap&v=weekly&channel=2" async></script>
 
 <script>
     $.ajaxSetup({
@@ -992,6 +992,7 @@
     let markersArray = [];
 
     let myMarkersArray = [];
+    let linesArray = [];
 
     $('#selectDis').change(function() {
         this.selected = $(this).val();
@@ -1046,6 +1047,7 @@
         });
 
     }
+    var line = null;
 
     function myLocation() {
 
@@ -1063,7 +1065,7 @@
 
                 data2 = data.OwnLocation;
                 data3 = data.OtherLocation[i];
-   
+
                 var mk1 = new google.maps.Marker({
                     position: {
                         lat: parseFloat(data.OwnLocation.lat),
@@ -1112,6 +1114,41 @@
                     });
                 })(mk2, data3);
 
+                var line = new google.maps.Polyline({
+                    path: [{
+                        lat: parseFloat(data.OwnLocation.lat),
+                        lng: parseFloat(data.OwnLocation.lng)
+                    }, {
+                        lat: parseFloat(data.OtherLocation[i].lat),
+                        lng: parseFloat(data.OtherLocation[i].lng)
+                    }],
+                    strokeColor: "#FF0000",
+                    geodesic: true,
+                    strokeOpacity: 2.0,
+                    strokeWeight: 4,
+                    map: map,
+                    zindex: 1
+                });
+
+                var lineSymbol = {
+                    path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+                    scale: 8,
+                    strokeColor: '#FF0000',
+                };
+
+                lineSymbol.rotation = google.maps.geometry.spherical.computeHeading(line.getPath().getAt(0), line.getPath().getAt(1));
+
+                 line.setOptions({
+                    icons: [{
+                        icon: lineSymbol,
+                        offset: '100%'
+                    }]
+                });
+
+                line.setMap(map);
+
+                linesArray.push(line);
+
                 latlngbounds.extend(mk2.position);
 
                 markersArray.push(mk2);
@@ -1119,6 +1156,7 @@
                 if (destinationDistance[i] > selected) {
                     mk2.setVisible(false)
                     mk2.setMap(null);
+                    line.setMap(null);
                     break;
                 }
                 var bounds = new google.maps.LatLngBounds();
@@ -1144,6 +1182,12 @@
                 markersArray[i].setMap(null);
             }
             markersArray.length = 0;
+        }
+        if (linesArray) {
+            for (i in linesArray) {
+                linesArray[i].setMap(null);
+            }
+            linesArray.length = 0;
         }
     }
 
@@ -1175,7 +1219,7 @@
 
     function showError(error) {
         switch (error.code) {
-            
+
             case error.PERMISSION_DENIED:
                 $('#googleMap').html('');
                 $('#googleMap').html('<div class="alert alert-danger" role="alert">User denied the request for Geolocation.</div>');
