@@ -1145,6 +1145,17 @@
                     }]
                 });
 
+                // clickable line
+
+                (function(line, mk2) {
+                    google.maps.event.addListener(line, "click", function(e) {
+                        infoWindow.setContent("<div style='text-align:center;'><div style = 'width:auto; height:auto; font-family:sans-sarif; font-size: 20px;'><img class='center' src='" + data3.icon + "' style='width:40%; height:auto; display: block; margin-left: auto; margin-right: auto;'><br><br> " + data3.name + "<br><br><span style='color: blue;'> " + destinationDistance[i] + " Km From My Location </span></div></div>");
+                        infoWindow.open(map, mk2);
+                    });
+                })(line, mk2);
+
+                // clickable line
+
                 line.setMap(map);
 
                 linesArray.push(line);
