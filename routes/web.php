@@ -45,11 +45,11 @@ Route::group(['middleware' => ['web']], function () {
     
 });
 
-// Route::prefix('Location')->group(
-//     function () {
-        // Route::resource('Location', 'MapLocationsController');
-//     }
-// );
+Route::prefix('Location')->group(
+    function () {
+        Route::resource('Location', 'MapLocationsController');
+    }
+);
 
 Route::get('Location/index', 'MapLocationsController@index')->name('Location.index');
 Route::get('Location/update/{id}', 'MapLocationsController@index')->name('Location.update');

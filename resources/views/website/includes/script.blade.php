@@ -90,7 +90,7 @@
 
 <script type="text/javascript" src="{{ asset('js/calendar.js') }}"></script>
 
-<!-- <script type="text/javascript">
+<script type="text/javascript">
     tjq(document).ready(function() {
         // function outputsize() {
         //     console.log(textbox.offsetWidth);
@@ -267,7 +267,7 @@
         });
 
     });
-</script> -->
+</script>
 
 <script>
     // $("#check").addClass("active");

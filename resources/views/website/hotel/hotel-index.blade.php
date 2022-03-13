@@ -344,7 +344,7 @@
                             <div class="col-md-4">
                                 <h4 class="title">Checking Nearer Hotels</h4>
                                 <div class="form-group">
-                                <label>My Location To: </label>
+                                    <label>My Location To: </label>
                                     <select class="input-text full-width" name="" id="selectDis">
                                         <option value="">Select</option>
                                         <option value="1">1</option>
@@ -358,9 +358,26 @@
                                     </select>
                                 </div>
 
+                                <div class="form-group">
+                                    <!-- Notice -->
+                                    <div class="notice">
+                                        <div class="icon-notice"><i class="soap-icon-recommend"></i></div>
+                                        <div class="content-notice">
+                                            <h4>Notice:</h4>
+                                            <p> You can select the range from your location to see the hotels.</p>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+
+
                             </div>
 
-                            <div id="googleMap" style="width: 30%; height: 640px"></div>
+                            <div style="padding-left: 100px; border-radius: 5px;" class="col">
+
+                                <div id="googleMap" style="width: 50%; height: 500px; border-radius: 10px;"></div>
+
+                            </div>
 
                         </div>
                     </form>
@@ -952,9 +969,9 @@
 </section>
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC939FE0TQkI_gw0xHgTF0KKP1gG7Hgi6U&callback=initMap&v=weekly&channel=2" async></script>
@@ -979,9 +996,20 @@
 
         selected = this.selected;
 
-        getLocation();
+        myLocation();
 
     });
+
+
+    setInterval(() => {
+
+        this.selected = $('#selectDis').val() ? $('#selectDis').val() : 10;
+
+        selected = this.selected;
+
+        getLocation();
+
+    }, 25000);
 
     function haversine_distance(mk1, mk2) {
         var R = 6371; // Radius of the Earth in km , if mile then 3959
@@ -997,10 +1025,9 @@
     }
 
     function initMap() {
-        console.log('initMap');
+        
         $.get('Location/index', function(data) {
 
-            console.log(data, 'data');
 
             map = new google.maps.Map(document.getElementById("googleMap"), {
 
@@ -1020,12 +1047,9 @@
 
     function myLocation() {
 
-
-        deleteOverlays();
-
         $.get('Location/index', function(data) {
 
-            console.log(data, 'dataMyMy');
+            deleteOverlays();
 
             var infoWindow = new google.maps.InfoWindow();
 
@@ -1037,7 +1061,7 @@
 
                 data2 = data.OwnLocation;
                 data3 = data.OtherLocation[i];
-                console.log(data2, data3);
+   
                 var mk1 = new google.maps.Marker({
                     position: {
                         lat: parseFloat(data.OwnLocation.lat),
@@ -1064,15 +1088,13 @@
                         lng: parseFloat(data3.lng)
                     },
                     map: map,
-                    title: data3.name,
+                    title: data3.location,
                     icon: 'https://img.icons8.com/ios-filled/50/000000/marker-h.png'
                 });
 
                 var distance = haversine_distance(mk1, mk2);
 
                 destinationDistance.push(distance);
-
-                console.log(destinationDistance, parseFloat(selected));
 
                 (function(mk2, data3) {
                     var icon = {
@@ -1081,8 +1103,9 @@
                         radius: 50,
 
                     };
+
                     google.maps.event.addListener(mk2, "click", function(e) {
-                        infoWindow.setContent("<div style='text-align:center;'><div style = 'width:auto; height:auto; font-family:sans-sarif; font-size: 20px;'><img class='center' src='" + icon.url + "' style='width:40%; height:auto; display: block; margin-left: auto; margin-right: auto;'><br><br> " + data3.location + "<br><br><span style='color: blue;'> " + destinationDistance[i] + " Km From My Location </span></div></div>");
+                        infoWindow.setContent("<div style='text-align:center;'><div style = 'width:auto; height:auto; font-family:sans-sarif; font-size: 20px;'><img class='center' src='" + icon.url + "' style='width:40%; height:auto; display: block; margin-left: auto; margin-right: auto;'><br><br> " + data3.name + "<br><br><span style='color: blue;'> " + destinationDistance[i] + " Km From My Location </span></div></div>");
                         infoWindow.open(map, mk2);
                     });
                 })(mk2, data3);
@@ -1135,14 +1158,13 @@
     function showPosition(position) {
 
         $.ajax({
-            method: "PUT",
+            method: "GET",
             url: "{{ route('Location.update', 1) }}",
             data: {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude,
             },
             success: function(result) {
-                console.log(result);
                 myLocation();
             }
         });
@@ -1167,7 +1189,3 @@
     }
 </script>
 @endsection
-
-
-
-
