@@ -34,7 +34,16 @@
                 <li class="active"><a href="#hotels-tab" data-toggle="tab">HOTELS</a></li>
                 <li><a href="#flights-tab" data-toggle="tab">FLIGHTS</a></li>
 
+                @auth
+
                 <li><a href="#near-me" data-toggle="tab">NEAR ME</a></li>
+
+                @else
+
+                <li><a href="{{route('login')}}" >NEAR ME</a></li>
+
+
+                @endauth
 
                 <li><a href="#flight-and-hotel-tab" data-toggle="tab">FLIGHT &amp; HOTELS</a></li>
                 <li><a href="#cars-tab" data-toggle="tab">CARS</a></li>
@@ -48,7 +57,16 @@
                     <li><a href="#flights-tab">FLIGHTS</a></li>
 
                     <li><a href="#flight-and-hotel-tab">FLIGHT &amp; HOTELS</a></li>
-                    <li><a href="#near-me">NEAR ME</a></li>
+                    @auth
+
+                    <li><a href="#near-me">NEAR MyE</a></li>
+
+                    @else
+
+                    <li><a href="{{route('login')}}">NEAR ME</a></li>
+
+                    @endauth
+
                     <li><a href="#cars-tab">CARS</a></li>
                     <li><a href="#cruises-tab">CRUISES</a></li>
                     <li><a href="#flight-status-tab">FLIGHT STATUS</a></li>
@@ -1138,7 +1156,7 @@
 
                 lineSymbol.rotation = google.maps.geometry.spherical.computeHeading(line.getPath().getAt(0), line.getPath().getAt(1));
 
-                 line.setOptions({
+                line.setOptions({
                     icons: [{
                         icon: lineSymbol,
                         offset: '100%'

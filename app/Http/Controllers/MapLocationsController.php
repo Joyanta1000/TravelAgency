@@ -18,7 +18,7 @@ class MapLocationsController extends Controller
         $location = Hotel::all();
         // $OtherLocation = $location->find(request()->location_id);
         $OtherLocation = $location->all();
-        $OwnLocation = User::find(1);
+        $OwnLocation = User::find(auth()->user()->id);
         return response()->json([
             'OtherLocation' => $OtherLocation,
             'OwnLocation' => $OwnLocation,
@@ -77,7 +77,7 @@ class MapLocationsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $res = User::find($id)->update([
+        $res = User::find(auth()->user()->id)->update([
             'lat' => $request->lat,
             'lng' => $request->lng,
         ]);

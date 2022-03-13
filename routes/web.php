@@ -52,7 +52,7 @@ Route::prefix('Location')->group(
 );
 
 Route::get('Location/index', 'MapLocationsController@index')->name('Location.index');
-Route::get('Location/update/{id}', 'MapLocationsController@index')->name('Location.update');
+Route::get('Location/update/{id}', 'MapLocationsController@update')->name('Location.update');
 
 Auth::routes();
 
