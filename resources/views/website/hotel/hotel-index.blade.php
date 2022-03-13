@@ -375,7 +375,9 @@
 
                             <div style="padding-left: 100px; border-radius: 5px;" class="col">
 
-                                <div id="googleMap" style="width: 50%; height: 500px; border-radius: 10px;"></div>
+                            <div id="googleMap" style="width: 50%; height: 500px; border-radius: 10px;">
+                            
+                            </div>
 
                             </div>
 
@@ -1025,7 +1027,7 @@
     }
 
     function initMap() {
-        
+
         $.get('Location/index', function(data) {
 
 
@@ -1173,17 +1175,22 @@
 
     function showError(error) {
         switch (error.code) {
+            
             case error.PERMISSION_DENIED:
-                x.innerHTML = "User denied the request for Geolocation."
+                $('#googleMap').html('');
+                $('#googleMap').html('<div class="alert alert-danger" role="alert">User denied the request for Geolocation.</div>');
                 break;
             case error.POSITION_UNAVAILABLE:
-                x.innerHTML = "Location information is unavailable."
+                $('#googleMap').html('');
+                $('#googleMap').html('<div class="alert alert-danger" role="alert">Location information is unavailable.</div>');
                 break;
             case error.TIMEOUT:
-                x.innerHTML = "The request to get user location timed out."
+                $('#googleMap').html('');
+                $('#googleMap').html('<div class="alert alert-danger" role="alert">The request to get user location timed out.</div>');
                 break;
             case error.UNKNOWN_ERROR:
-                x.innerHTML = "An unknown error occurred."
+                $('#googleMap').html('');
+                $('#googleMap').html('<div class="alert alert-danger" role="alert">An unknown error occurred.</div>');
                 break;
         }
     }
