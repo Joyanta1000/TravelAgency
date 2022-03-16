@@ -8,6 +8,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- to check -->
+    
+    <!-- Current Page Styles -->
+    
+    <!-- Main Style -->
+    
+    <!-- Custom Styles -->
+
+    <!-- Updated Styles -->
+    
+    <!-- Responsive Styles -->
 
     <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
     
@@ -49,8 +59,8 @@
     <![endif]-->
 
 <!-- Javascript Page Loader -->
-<script type="text/javascript" src="{{asset('js/pace.min.js')}}" data-pace-options='{ "ajax": false }'></script>
-<script type="text/javascript" src="{{asset('js/page-loading.js')}}"></script>
+<!-- <script type="text/javascript" src="{{asset('js/pace.min.js')}}" data-pace-options='{ "ajax": false }'></script> -->
+<!-- <script type="text/javascript" src="{{asset('js/page-loading.js')}}"></script> -->
 
 <!--  -->
 
@@ -233,5 +243,6 @@
     color:#FFF;
 }
   </style>
+  
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>

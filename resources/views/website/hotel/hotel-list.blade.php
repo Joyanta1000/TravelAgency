@@ -24,6 +24,21 @@
                                 <a data-toggle="collapse" href="#price-filter" class="collapsed">Price</a>
                             </h4>
                             <div id="price-filter" class="panel-collapse collapse">
+                                <div style="margin: auto;
+  width: 90%;
+  padding: 1px;">
+                                    <label for="">Min Range</label>
+                                    <select name="" id="min_range">
+                                        <option value="0" selected>0</option>
+                                        <!-- <option value="10">10</option> -->
+                                    </select>
+                                    <label for="">Max Range</label>
+                                    <select name="" id="max_range">
+                                        <option value="">Select</option>
+                                        <option value="100">100</option>
+                                        <option value="200">200</option>
+                                    </select>
+                                </div>
                                 <div class="panel-content">
                                     <div id="price-range"></div>
                                     <br />
@@ -54,7 +69,7 @@
                             <div id="accomodation-type-filter" class="panel-collapse collapse">
                                 <div class="panel-content">
                                     <ul class="check-square filters-option">
-                                        <li><a href="#">All<small>(722)</small></a></li>
+                                        <li><a href="#">All<small>(722)</small></a><input type="text" name="accomodation[]"></li>
                                         <li><a href="#">Hotel<small>(982)</small></a></li>
                                         <li><a href="#">Resort<small>(127)</small></a></li>
                                         <li class="active"><a href="#">Bed &amp; Breakfast<small>(222)</small></a></li>

@@ -53,8 +53,6 @@
             </li>
             @endguest
 
-            
-            
             <li class="ribbon currency">
                 <a href="#" title="">USD</a>
                 <ul class="menu mini">
@@ -73,6 +71,7 @@
                     <li><a href="#" title="IDR">IDR</a></li>
                 </ul>
             </li>
+        
         </ul>
     </div>
 </div>
@@ -557,7 +556,9 @@
                 </ul>
             </li>
             <li><a href="#travelo-login" class="soap-popupbox">LOGIN</a></li>
+            
             <li><a href="#travelo-signup" class="soap-popupbox">SIGNUP</a></li>
+
             <li class="ribbon currency menu-color-skin">
                 <a href="#">USD</a>
                 <ul class="menu mini">
@@ -576,6 +577,7 @@
                     <li><a href="#" title="IDR">IDR</a></li>
                 </ul>
             </li>
+
         </ul>
 
     </nav>

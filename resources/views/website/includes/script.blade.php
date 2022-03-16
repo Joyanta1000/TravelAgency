@@ -1,3 +1,116 @@
+@if(request()->is('hotel-list'))
+<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="js/jquery.noconflict.js"></script>
+<script type="text/javascript" src="js/modernizr.2.7.1.min.js"></script>
+<script type="text/javascript" src="js/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="js/jquery.placeholder.js"></script>
+<script type="text/javascript" src="js/jquery-ui.1.10.4.min.js"></script>
+
+<!-- Twitter Bootstrap -->
+<script type="text/javascript" src="js/bootstrap.js"></script>
+
+<!-- load revolution slider scripts -->
+<script type="text/javascript" src="components/revolution_slider/js/jquery.themepunch.plugins.min.js"></script>
+<script type="text/javascript" src="components/revolution_slider/js/jquery.themepunch.revolution.min.js"></script>
+
+<!-- load BXSlider scripts -->
+<script type="text/javascript" src="components/jquery.bxslider/jquery.bxslider.min.js"></script>
+
+<!-- load FlexSlider scripts -->
+<script type="text/javascript" src="components/flexslider/jquery.flexslider-min.js"></script>
+
+<!-- Google Map Api -->
+<script type='text/javascript' src="http://maps.google.com/maps/api/js?sensor=false&amp;language=en"></script>
+<script type="text/javascript" src="js/gmap3.min.js"></script>
+
+<!-- parallax -->
+<script type="text/javascript" src="js/jquery.stellar.min.js"></script>
+
+<!-- waypoint -->
+<script type="text/javascript" src="js/waypoints.min.js"></script>
+
+<!-- load page Javascript -->
+<script type="text/javascript" src="js/theme-scripts.js"></script>
+<script type="text/javascript" src="js/scripts.js"></script>
+
+<script type="text/javascript">
+    tjq(document).ready(function() {
+        var min_value = 0;
+        var max_value = 1000;
+        var min_price = null;
+        var max_price = null;
+        var enabled = true;
+        var chosen_min_price = null;
+        var chosen_max_price = null;
+        tjq('#min_range').change(function() {
+
+            this.min_value = tjq(this).val();
+            min_value = this.min_value;
+
+            console.log(min_value);
+        });
+
+        tjq('#max_range').change(function() {
+
+
+            this.max_value = tjq(this).val();
+            max_value = this.max_value;
+
+            console.log(max_value);
+
+            slidert(min_value, max_value, min_price, max_price);
+
+
+        });
+
+
+
+        slidert();
+
+
+        function slidert() {
+
+
+            tjq("#price-range").slider({
+                range: true,
+                min: min_value,
+                max: max_value,
+                values: [min_price, max_price],
+                slide: function(event, ui) {
+
+                    this.chosen_min_price = ui.values[0];
+                    this.chosen_max_price = ui.values[1];
+                    // console.log(ui.values[0], ui.values[1]);
+                    tjq(".min-price-label").html("$" + ui.values[0]);
+                    tjq(".max-price-label").html("$" + ui.values[1]);
+                }
+            });
+            tjq(".min-price-label").html("$" + tjq("#price-range").slider("values", 0));
+            tjq(".max-price-label").html("$" + tjq("#price-range").slider("values", 1));
+            // }
+
+        }
+
+
+        tjq("#rating").slider({
+            range: "min",
+            value: 40,
+            min: 0,
+            max: 50,
+            slide: function(event, ui) {
+
+            }
+        });
+    });
+</script>
+
+@else
+
+<!-- Google Map Api -->
+<!-- <script type='text/javascript' src="http://maps.google.com/maps/api/js?sensor=false&amp;language=en"></script> -->
+<!-- <script type="text/javascript" src="js/gmap3.min.js"></script> -->
+
+<!-- to check -->
 <script type="text/javascript" src="{{ asset('js/bootstrap.js') }}"></script>
 
 <!-- Flex Slider -->
@@ -296,5 +409,7 @@
 <!-- Ratings -->
 
 
-    <!-- <script type='text/javascript' src="http://maps.google.com/maps/api/js?sensor=false&amp;language=en"></script> -->
-    <script type="text/javascript" src="js/gmap3.min.js"></script>
+<!-- <script type='text/javascript' src="http://maps.google.com/maps/api/js?sensor=false&amp;language=en"></script> -->
+<script type="text/javascript" src="js/gmap3.min.js"></script>
+
+@endif
