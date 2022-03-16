@@ -1,37 +1,37 @@
 @if(request()->is('hotel-list'))
-<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
-<script type="text/javascript" src="js/jquery.noconflict.js"></script>
-<script type="text/javascript" src="js/modernizr.2.7.1.min.js"></script>
-<script type="text/javascript" src="js/jquery-migrate-1.2.1.min.js"></script>
-<script type="text/javascript" src="js/jquery.placeholder.js"></script>
-<script type="text/javascript" src="js/jquery-ui.1.10.4.min.js"></script>
+<script type="text/javascript" src="{{asset('js/jquery-1.11.1.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/jquery.noconflict.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/modernizr.2.7.1.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/jquery-migrate-1.2.1.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/jquery.placeholder.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/jquery-ui.1.10.4.min.js')}}"></script>
 
 <!-- Twitter Bootstrap -->
-<script type="text/javascript" src="js/bootstrap.js"></script>
+<script type="text/javascript" src="{{asset('js/bootstrap.js')}}"></script>
 
 <!-- load revolution slider scripts -->
-<script type="text/javascript" src="components/revolution_slider/js/jquery.themepunch.plugins.min.js"></script>
-<script type="text/javascript" src="components/revolution_slider/js/jquery.themepunch.revolution.min.js"></script>
+<script type="text/javascript" src="{{asset('components/revolution_slider/js/jquery.themepunch.plugins.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('components/revolution_slider/js/jquery.themepunch.revolution.min.js')}}"></script>
 
 <!-- load BXSlider scripts -->
-<script type="text/javascript" src="components/jquery.bxslider/jquery.bxslider.min.js"></script>
+<script type="text/javascript" src="{{asset('components/jquery.bxslider/jquery.bxslider.min.js')}}"></script>
 
 <!-- load FlexSlider scripts -->
-<script type="text/javascript" src="components/flexslider/jquery.flexslider-min.js"></script>
+<script type="text/javascript" src="{{asset('components/flexslider/jquery.flexslider-min.js')}}"></script>
 
 <!-- Google Map Api -->
 <script type='text/javascript' src="http://maps.google.com/maps/api/js?sensor=false&amp;language=en"></script>
-<script type="text/javascript" src="js/gmap3.min.js"></script>
+<script type="text/javascript" src="{{asset('js/gmap3.min.js')}}"></script>
 
 <!-- parallax -->
-<script type="text/javascript" src="js/jquery.stellar.min.js"></script>
+<script type="text/javascript" src="{{asset('js/jquery.stellar.min.js')}}"></script>
 
 <!-- waypoint -->
-<script type="text/javascript" src="js/waypoints.min.js"></script>
+<script type="text/javascript" src="{{asset('js/waypoints.min.js')}}"></script>
 
 <!-- load page Javascript -->
-<script type="text/javascript" src="js/theme-scripts.js"></script>
-<script type="text/javascript" src="js/scripts.js"></script>
+<script type="text/javascript" src="{{asset('js/theme-scripts.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/scripts.js')}}"></script>
 
 <script type="text/javascript">
     tjq(document).ready(function() {
@@ -47,7 +47,6 @@
             this.min_value = tjq(this).val();
             min_value = this.min_value;
 
-            console.log(min_value);
         });
 
         tjq('#max_range').change(function() {
@@ -56,20 +55,15 @@
             this.max_value = tjq(this).val();
             max_value = this.max_value;
 
-            console.log(max_value);
-
             slidert(min_value, max_value, min_price, max_price);
 
 
         });
 
-
-
         slidert();
 
 
         function slidert() {
-
 
             tjq("#price-range").slider({
                 range: true,
@@ -80,14 +74,16 @@
 
                     this.chosen_min_price = ui.values[0];
                     this.chosen_max_price = ui.values[1];
-                    // console.log(ui.values[0], ui.values[1]);
+
+                    chosen_min_price = this.chosen_min_price;
+                    chosen_max_price = this.chosen_max_price;
+
                     tjq(".min-price-label").html("$" + ui.values[0]);
                     tjq(".max-price-label").html("$" + ui.values[1]);
                 }
             });
             tjq(".min-price-label").html("$" + tjq("#price-range").slider("values", 0));
             tjq(".max-price-label").html("$" + tjq("#price-range").slider("values", 1));
-            // }
 
         }
 
@@ -101,6 +97,80 @@
 
             }
         });
+
+        tjq('#search').click(function() {
+
+            var accomadation_type = [];
+
+            var amenities = [];
+
+            var host_language = [];
+
+
+            const accomodation_type_container = document.querySelector("ul#accomodation_type");
+
+            const accomodation_type_matches = accomodation_type_container.querySelectorAll("li.active");
+
+            accomodation_type_matches.forEach(function(accomodation_type_match) {
+
+                accomadation_type.push(accomodation_type_match.getAttribute("data-interest"));
+
+            });
+
+
+            const amenities_container = document.querySelector("ul#amenities");
+
+            const amenities_matches = amenities_container.querySelectorAll("li.active");
+
+            amenities_matches.forEach(function(amenities_match) {
+
+                amenities.push(amenities_match.getAttribute("data-interest"));
+
+            });
+
+            const host_language_container = document.querySelector("ul#host_language");
+
+            const host_language_matches = host_language_container.querySelectorAll("li.active");
+
+            host_language_matches.forEach(function(host_language_match) {
+
+                host_language.push(host_language_match.getAttribute("data-interest"));
+
+            });
+
+            console.log(accomadation_type, amenities, host_language, chosen_min_price, chosen_max_price, tjq('#destination').val(), tjq('#check_in').val(), tjq('#check_out').val());
+
+            const url = "{{ route('toFilter.search') }}";
+            const token = "{{ csrf_token() }}";
+            const data = {
+                _token: token,
+                "accomodation_type": accomadation_type,
+                "amenities": amenities,
+                "host_language": host_language,
+                "min_price": chosen_min_price,
+                "max_price": chosen_max_price,
+                "destination": tjq('#destination').val(),
+                "check_in": tjq('#check_in').val(),
+                "check_out": tjq('#check_out').val()
+            };
+
+            tjq.ajax({
+                url: url,
+                method: "POST",
+                data: data,
+                success: function(data) {
+
+                    tjq('#to_filter').html('');
+
+                    tjq('#to_filter').html(data);
+
+                }
+            });
+
+        });
+
+
+
     });
 </script>
 

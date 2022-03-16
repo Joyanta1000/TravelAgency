@@ -54,6 +54,9 @@ Route::prefix('Location')->group(
 Route::get('Location/index', 'MapLocationsController@index')->name('Location.index');
 Route::get('Location/update/{id}', 'MapLocationsController@update')->name('Location.update');
 
+Route::post('toFilter/search', 'FilterSearchController@toFilter')->name('toFilter.search');
+
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

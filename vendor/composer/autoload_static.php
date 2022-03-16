@@ -454,6 +454,7 @@ class ComposerStaticInit394b87c6ea8e55d02f6fc4a998daeb6d
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\HotelController' => __DIR__ . '/../..' . '/app/Http/Controllers/HotelController.php',
         'App\\Http\\Controllers\\InvoiceController' => __DIR__ . '/../..' . '/app/Http/Controllers/InvoiceController.php',
+        'App\\Http\\Controllers\\MapLocationsController' => __DIR__ . '/../..' . '/app/Http/Controllers/MapLocationsController.php',
         'App\\Http\\Controllers\\ReviewCategoryController' => __DIR__ . '/../..' . '/app/Http/Controllers/ReviewCategoryController.php',
         'App\\Http\\Controllers\\ReviewController' => __DIR__ . '/../..' . '/app/Http/Controllers/ReviewController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',

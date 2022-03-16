@@ -24,6 +24,7 @@
                                 <a data-toggle="collapse" href="#price-filter" class="collapsed">Price</a>
                             </h4>
                             <div id="price-filter" class="panel-collapse collapse">
+
                                 <div style="margin: auto;
   width: 90%;
   padding: 1px;">
@@ -39,6 +40,7 @@
                                         <option value="200">200</option>
                                     </select>
                                 </div>
+
                                 <div class="panel-content">
                                     <div id="price-range"></div>
                                     <br />
@@ -68,14 +70,14 @@
                             </h4>
                             <div id="accomodation-type-filter" class="panel-collapse collapse">
                                 <div class="panel-content">
-                                    <ul class="check-square filters-option">
-                                        <li><a href="#">All<small>(722)</small></a><input type="text" name="accomodation[]"></li>
-                                        <li><a href="#">Hotel<small>(982)</small></a></li>
-                                        <li><a href="#">Resort<small>(127)</small></a></li>
-                                        <li class="active"><a href="#">Bed &amp; Breakfast<small>(222)</small></a></li>
-                                        <li><a href="#">Condo<small>(158)</small></a></li>
-                                        <li><a href="#">Residence<small>(439)</small></a></li>
-                                        <li><a href="#">Guest House<small>(52)</small></a></li>
+                                    <ul id="accomodation_type" class="check-square filters-option">
+                                        <li data-interest="0" ><a href="#">All<small>(722)</small></a></li>
+                                        <li data-interest="1" ><a href="#">Hotel<small>(982)</small></a></li>
+                                        <li data-interest="2" class="active"><a href="#">Resort<small>(127)</small></a></li>
+                                        <li data-interest="3" class="active"><a href="#">Bed &amp; Breakfast<small>(222)</small></a></li>
+                                        <li data-interest="4" ><a href="#">Condo<small>(158)</small></a></li>
+                                        <li data-interest="5" ><a href="#">Residence<small>(439)</small></a></li>
+                                        <li data-interest="6"><a href="#">Guest House<small>(52)</small></a></li>
                                     </ul>
                                     <a class="button btn-mini">MORE</a>
                                 </div>
@@ -88,14 +90,14 @@
                             </h4>
                             <div id="amenities-filter" class="panel-collapse collapse">
                                 <div class="panel-content">
-                                    <ul class="check-square filters-option">
-                                        <li><a href="#">Bathroom<small>(722)</small></a></li>
-                                        <li><a href="#">Cable tv<small>(982)</small></a></li>
-                                        <li class="active"><a href="#">air conditioning<small>(127)</small></a></li>
-                                        <li class="active"><a href="#">mini bar<small>(222)</small></a></li>
-                                        <li><a href="#">wi - fi<small>(158)</small></a></li>
-                                        <li><a href="#">pets allowed<small>(439)</small></a></li>
-                                        <li><a href="#">room service<small>(52)</small></a></li>
+                                    <ul id = "amenities" class="check-square filters-option">
+                                        <li data-interest="0"><a href="#">Bathroom<small>(722)</small></a></li>
+                                        <li data-interest="1"><a href="#">Cable tv<small>(982)</small></a></li>
+                                        <li data-interest="2" class="active"><a href="#">air conditioning<small>(127)</small></a></li>
+                                        <li data-interest="3" class="active"><a href="#">mini bar<small>(222)</small></a></li>
+                                        <li data-interest="4"><a href="#">wi - fi<small>(158)</small></a></li>
+                                        <li data-interest="5"><a href="#">pets allowed<small>(439)</small></a></li>
+                                        <li data-interest="6"><a href="#">room service<small>(52)</small></a></li>
                                     </ul>
                                     <a class="button btn-mini">MORE</a>
                                 </div>
@@ -108,14 +110,14 @@
                             </h4>
                             <div id="language-filter" class="panel-collapse collapse">
                                 <div class="panel-content">
-                                    <ul class="check-square filters-option">
-                                        <li><a href="#">English<small>(722)</small></a></li>
-                                        <li><a href="#">Español<small>(982)</small></a></li>
-                                        <li class="active"><a href="#">Português<small>(127)</small></a></li>
-                                        <li class="active"><a href="#">Français<small>(222)</small></a></li>
-                                        <li><a href="#">Suomi<small>(158)</small></a></li>
-                                        <li><a href="#">Italiano<small>(439)</small></a></li>
-                                        <li><a href="#">Sign Language<small>(52)</small></a></li>
+                                    <ul id = "host_language" class="check-square filters-option">
+                                        <li data-interest="0"><a href="#">English<small>(722)</small></a></li>
+                                        <li data-interest="1"><a href="#">Español<small>(982)</small></a></li>
+                                        <li data-interest="2" class="active"><a href="#">Português<small>(127)</small></a></li>
+                                        <li data-interest="3" class="active"><a href="#">Français<small>(222)</small></a></li>
+                                        <li data-interest="4"><a href="#">Suomi<small>(158)</small></a></li>
+                                        <li data-interest="5"><a href="#">Italiano<small>(439)</small></a></li>
+                                        <li data-interest="6"><a href="#">Sign Language<small>(52)</small></a></li>
                                     </ul>
                                     <a class="button btn-mini">MORE</a>
                                 </div>
@@ -128,26 +130,26 @@
                             </h4>
                             <div id="modify-search-panel" class="panel-collapse collapse">
                                 <div class="panel-content">
-                                    <form method="post">
+                                    
                                         <div class="form-group">
                                             <label>destination</label>
-                                            <input type="text" class="input-text full-width" placeholder="" value="Paris" />
+                                            <input type="text" id="destination" class="input-text full-width" placeholder="" value="" />
                                         </div>
                                         <div class="form-group">
                                             <label>check in</label>
                                             <div class="datepicker-wrap">
-                                                <input type="text" class="input-text full-width" placeholder="mm/dd/yy" />
+                                                <input type="text" id="check_in" class="input-text full-width" placeholder="mm/dd/yy" />
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label>check out</label>
                                             <div class="datepicker-wrap">
-                                                <input type="text" class="input-text full-width" placeholder="mm/dd/yy" />
+                                                <input type="text" id="check_out" class="input-text full-width" placeholder="mm/dd/yy" />
                                             </div>
                                         </div>
                                         <br />
-                                        <button class="btn-medium icon-check uppercase full-width">search again</button>
-                                    </form>
+                                        <button id="search" class="btn-medium icon-check uppercase full-width">search again</button>
+                                   
                                 </div>
                             </div>
                         </div>
@@ -176,6 +178,7 @@
                             </li>
                         </ul>
                     </div>
+                    <div id="to_filter"></div>
                     <div class="hotel-list listing-style3 hotel">
                         @foreach ($hotels as $hotel)
                         <article class="box">
