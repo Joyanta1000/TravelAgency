@@ -59,7 +59,7 @@
                     <li><a href="#flight-and-hotel-tab">FLIGHT &amp; HOTELS</a></li>
                     @auth
 
-                    <li><a href="#near-me">NEAR MyE</a></li>
+                    <li><a href="#near-me">NEAR ME</a></li>
 
                     @else
 
