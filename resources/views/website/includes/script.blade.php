@@ -274,7 +274,9 @@
 <script type="text/javascript" src="{{ asset('js/calendar.js') }}"></script>
 
 <script type="text/javascript">
+    
     tjq(document).ready(function() {
+    
         // function outputsize() {
         //     console.log(textbox.offsetWidth);
         //     // height.value = textbox.offsetHeight
@@ -397,7 +399,7 @@
 
 
     tjq('.verify').click(function() {
-
+        
         $("#message").html('');
         // list = $('li', parent);
         // list.not(target).hide("slow");
