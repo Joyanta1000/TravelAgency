@@ -99,12 +99,16 @@
         });
 
         tjq('#search').click(function() {
+   
+
 
             var accomadation_type = [];
 
             var amenities = [];
 
             var host_language = [];
+
+            var rating = (parseInt($('#rating').parent().find('.ui-slider-range').css('width').replace(/px/g, ''))*5)/121;
 
 
             const accomodation_type_container = document.querySelector("ul#accomodation_type");
@@ -149,6 +153,7 @@
                 "host_language": host_language,
                 "min_price": chosen_min_price,
                 "max_price": chosen_max_price,
+                "rating" : rating,
                 "destination": tjq('#destination').val(),
                 "check_in": tjq('#check_in').val(),
                 "check_out": tjq('#check_out').val()

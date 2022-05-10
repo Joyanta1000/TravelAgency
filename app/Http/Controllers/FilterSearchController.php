@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Hotel;
+use App\Review;
 use Illuminate\Http\Request;
 
 class FilterSearchController extends Controller
@@ -13,7 +15,20 @@ class FilterSearchController extends Controller
      */
     public function index()
     {
-        //
+        // $obj = Hotel::with(['review' => fn ($query) => $query->selectRaw('avg(review) as review, hotel_id')
+        // ->groupBy('hotel_id')])
+        // // ->where('review' , '<=', 4)
+        // // ->whereHas('review', function ($query) {
+        // //     $query->where('review' , '<=', 4);
+        // // })
+        // ->get();
+        $obj = Hotel::
+        // ->where('review' , '<=', 4)
+        whereHas('review', function ($query) {
+            $query->avg('review');
+        })
+        ->get();
+        dd($obj);
     }
 
     public function toFilter()
@@ -25,6 +40,7 @@ class FilterSearchController extends Controller
             'min_price' => request('min_price'),
             'max_price' => request('max_price'),
             'destination' => request('destination'),
+            'rating' => request('rating'),
             'check_in' => request('check_in'),
             'check_out' => request('check_out')
         ];

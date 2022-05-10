@@ -8,6 +8,8 @@
         {{$data['max_price']}}
 
         <br>
+        {{$data['rating']}}
+        <br>
         <br>
 
         @foreach($data['accomodation_type'] as $accomodation_type)
