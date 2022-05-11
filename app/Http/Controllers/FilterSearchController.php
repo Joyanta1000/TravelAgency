@@ -13,22 +13,34 @@ class FilterSearchController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+
+    public function index(Hotel $hotel)
     {
-        // $obj = Hotel::with(['review' => fn ($query) => $query->selectRaw('avg(review) as review, hotel_id')
-        // ->groupBy('hotel_id')])
-        // // ->where('review' , '<=', 4)
-        // // ->whereHas('review', function ($query) {
-        // //     $query->where('review' , '<=', 4);
-        // // })
-        // ->get();
-        $obj = Hotel::
-        // ->where('review' , '<=', 4)
-        whereHas('review', function ($query) {
-            $query->avg('review');
-        })
-        ->get();
-        dd($obj);
+
+        $obj = $hotel->with(['avgRating'])->get();
+
+        $array = [];
+        $objArray = [];
+
+        $rating = 3;
+
+        foreach ($obj as $ob) {
+            if ($ob->avgRating <= $rating) {
+                $array['aggregate'] = $ob->avgRating;
+                $array['hotel_id'] = $ob->id;
+                array_push($objArray, $array);
+            }
+        }
+
+        $hotelArray = [];
+
+        for ($i = 0; $i < count($objArray); $i++) {
+            array_push($hotelArray, $objArray[$i]['hotel_id']);
+        }
+
+        $hotel = $hotel->find($hotelArray);
+
+        dd($hotel);
     }
 
     public function toFilter()
@@ -46,8 +58,8 @@ class FilterSearchController extends Controller
         ];
 
         // $html = view('website.hotel.filter_search')->with(compact('data'));
-    // return response()->json(['success' => true, 'html' => $data]);
-      
+        // return response()->json(['success' => true, 'html' => $data]);
+
         return view('website.hotel.filter_search', compact('data'));
     }
 
